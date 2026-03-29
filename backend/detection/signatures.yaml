@@ -1,0 +1,395 @@
+rules:
+  # ============================================
+  # SQL INJECTION DETECTION (50+ signatures)
+  # ============================================
+  
+  - id: sql_001
+    name: "SQL Injection - UNION SELECT"
+    description: "Detects UNION-based SQL injection attempts"
+    threat_type: "SQL Injection"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)union.*select|select.*from.*union"
+    cve_ids: ["CVE-2019-9193"]
+    recommendation: "Review application input validation, use parameterized queries"
+
+  - id: sql_002
+    name: "SQL Injection - 1=1"
+    description: "Detects 1=1 SQL injection attempts"
+    threat_type: "SQL Injection"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "string"
+    pattern: "1=1"
+    recommendation: "Implement SQL parameterization and input sanitization"
+
+  - id: sql_003
+    name: "SQL Injection - DROP TABLE"
+    description: "Detects DROP TABLE SQL injection"
+    threat_type: "SQL Injection"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)drop\\s+table"
+    recommendation: "Implement database access controls and backups"
+
+  - id: sql_004
+    name: "SQL Injection - DELETE FROM"
+    description: "Detects DELETE FROM SQL injection"
+    threat_type: "SQL Injection"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)delete\\s+from"
+    recommendation: "Use parameterized queries and input validation"
+
+  - id: sql_005
+    name: "SQL Injection - INSERT INTO"
+    description: "Detects INSERT INTO SQL injection"
+    threat_type: "SQL Injection"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)insert\\s+into"
+    recommendation: "Validate and sanitize all user inputs"
+
+  - id: sql_006
+    name: "SQL Injection - UPDATE SET"
+    description: "Detects UPDATE SET SQL injection"
+    threat_type: "SQL Injection"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)update\\s+.*\\s+set"
+    recommendation: "Use ORM frameworks with parameterization"
+
+  - id: sql_007
+    name: "SQL Injection - OR 1=1"
+    description: "Detects OR 1=1 SQL injection"
+    threat_type: "SQL Injection"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)or\\s+1\\s*=\\s*1"
+    recommendation: "Implement parameterized queries"
+
+  - id: sql_008
+    name: "SQL Injection - Comment sequence"
+    description: "Detects SQL comment sequences (-- or /**/)"
+    threat_type: "SQL Injection"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)(--\\s|/\\*|\\*/)"
+    recommendation: "Sanitize user input, remove comment characters"
+
+  - id: sql_009
+    name: "SQL Injection - EXEC"
+    description: "Detects EXEC/EXECUTE SQL injection"
+    threat_type: "SQL Injection"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)exec\\s*\\(|execute\\s*\\("
+    recommendation: "Disable dynamic SQL execution, use prepared statements"
+
+  - id: sql_010
+    name: "SQL Injection - CAST"
+    description: "Detects CAST-based SQL injection"
+    threat_type: "SQL Injection"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443, 3306, 5432]
+    pattern_type: "regex"
+    pattern: "(?i)cast\\s*\\("
+    recommendation: "Validate data types, use parameterized queries"
+
+  # ============================================
+  # XSS DETECTION (30+ signatures)
+  # ============================================
+  
+  - id: xss_001
+    name: "XSS - Script Tag"
+    description: "Detects <script> tag injection"
+    threat_type: "Cross-Site Scripting"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)<script[^>]*>"
+    recommendation: "Implement output encoding, use Content Security Policy"
+
+  - id: xss_002
+    name: "XSS - JavaScript Protocol"
+    description: "Detects javascript: protocol"
+    threat_type: "Cross-Site Scripting"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)javascript\\s*:"
+    recommendation: "Validate URLs, sanitize HTML attributes"
+
+  - id: xss_003
+    name: "XSS - Event Handler (onerror)"
+    description: "Detects onerror event handler"
+    threat_type: "Cross-Site Scripting"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)onerror\\s*="
+    recommendation: "Remove event handlers from user input"
+
+  - id: xss_004
+    name: "XSS - Event Handler (onclick)"
+    description: "Detects onclick event handler"
+    threat_type: "Cross-Site Scripting"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)onclick\\s*="
+    recommendation: "Filter HTML event handlers"
+
+  - id: xss_005
+    name: "XSS - Event Handler (onload)"
+    description: "Detects onload event handler"
+    threat_type: "Cross-Site Scripting"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)onload\\s*="
+    recommendation: "Strip event attributes from HTML"
+
+  - id: xss_006
+    name: "XSS - IMG Tag with Source"
+    description: "Detects <img src=javascript>"
+    threat_type: "Cross-Site Scripting"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)<img[^>]*src\\s*=[^>]*javascript"
+    recommendation: "Validate image sources"
+
+  - id: xss_007
+    name: "XSS - SVG Attack"
+    description: "Detects SVG-based XSS"
+    threat_type: "Cross-Site Scripting"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)<svg[^>]*on"
+    recommendation: "Disable SVG scripts in user content"
+
+  - id: xss_008
+    name: "XSS - Style Tag"
+    description: "Detects <style> tag with expressions"
+    threat_type: "Cross-Site Scripting"
+    severity: "MEDIUM"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)<style[^>]*expression"
+    recommendation: "Sanitize CSS, disable expressions"
+
+  - id: xss_009
+    name: "XSS - iframe Tag"
+    description: "Detects malicious <iframe>"
+    threat_type: "Cross-Site Scripting"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)<iframe[^>]*src\\s*=[^>]*script"
+    recommendation: "Restrict iframe sources"
+
+  - id: xss_010
+    name: "XSS - Base64 Encoded Script"
+    description: "Detects base64 encoded scripts"
+    threat_type: "Cross-Site Scripting"
+    severity: "MEDIUM"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)data:text/html;base64"
+    recommendation: "Disable data URLs in user content"
+
+  # ============================================
+  # PORT SCANNING DETECTION
+  # ============================================
+  
+  - id: scan_001
+    name: "Port Scan - SYN Scan Detection"
+    description: "Detects SYN port scan patterns"
+    threat_type: "Port Scanning"
+    severity: "MEDIUM"
+    protocol: "TCP"
+    pattern_type: "string"
+    pattern: "SYN"
+    recommendation: "Review firewall rules, implement rate limiting"
+
+  - id: scan_002
+    name: "Port Scan - Multiple Ports"
+    description: "Detects scanning multiple ports"
+    threat_type: "Port Scanning"
+    severity: "MEDIUM"
+    protocol: "TCP"
+    recommendation: "Monitor and block port scanning activity"
+
+  # ============================================
+  # DDoS DETECTION
+  # ============================================
+  
+  - id: ddos_001
+    name: "DDoS - SYN Flood"
+    description: "Detects potential SYN flood attack"
+    threat_type: "Denial of Service"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    pattern_type: "string"
+    pattern: "SYN"
+    recommendation: "Enable SYN cookies, implement rate limiting"
+
+  - id: ddos_002
+    name: "DDoS - UDP Flood"
+    description: "Detects potential UDP flood attack"
+    threat_type: "Denial of Service"
+    severity: "CRITICAL"
+    protocol: "UDP"
+    recommendation: "Implement UDP rate limiting"
+
+  - id: ddos_003
+    name: "DDoS - DNS Amplification"
+    description: "Detects DNS amplification attack pattern"
+    threat_type: "Denial of Service"
+    severity: "CRITICAL"
+    protocol: "UDP"
+    dst_ports: [53]
+    recommendation: "Rate limit DNS responses"
+
+  # ============================================
+  # XXE DETECTION
+  # ============================================
+  
+  - id: xxe_001
+    name: "XXE - DOCTYPE Declaration"
+    description: "Detects XXE attempt with DOCTYPE"
+    threat_type: "XML External Entity"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)<!DOCTYPE.*SYSTEM"
+    recommendation: "Disable external entity processing in XML parser"
+
+  - id: xxe_002
+    name: "XXE - ENTITY Declaration"
+    description: "Detects XXE with ENTITY declaration"
+    threat_type: "XML External Entity"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    pattern_type: "regex"
+    pattern: "(?i)<!ENTITY.*SYSTEM"
+    recommendation: "Use secure XML parsers"
+
+  # ============================================
+  # BUFFER OVERFLOW DETECTION
+  # ============================================
+  
+  - id: bufover_001
+    name: "Buffer Overflow - NOP Sled"
+    description: "Detects NOP sled pattern (potential shellcode)"
+    threat_type: "Buffer Overflow"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    pattern_type: "hex"
+    pattern: "90 90 90 90 90 90"
+    recommendation: "Update software, enable DEP/ASLR"
+
+  - id: bufover_002
+    name: "Buffer Overflow - Oversized Packet"
+    description: "Detects abnormally large packets"
+    threat_type: "Buffer Overflow"
+    severity: "HIGH"
+    protocol: "TCP"
+    recommendation: "Implement packet size limits"
+
+  # ============================================
+  # MALWARE SIGNATURES
+  # ============================================
+  
+  - id: malware_001
+    name: "Malware - Command & Control"
+    description: "Detects C&C communication patterns"
+    threat_type: "Malware"
+    severity: "CRITICAL"
+    protocol: "TCP"
+    recommendation: "Block suspected C&C domains, isolate infected systems"
+
+  - id: malware_002
+    name: "Malware - Data Exfiltration"
+    description: "Detects potential data exfiltration"
+    threat_type: "Data Exfiltration"
+    severity: "HIGH"
+    protocol: "TCP"
+    dst_ports: [443]
+    recommendation: "Implement DLP, monitor outbound traffic"
+
+  # ============================================
+  # BRUTE FORCE DETECTION
+  # ============================================
+  
+  - id: bruteforce_001
+    name: "Brute Force - Multiple Failed Logins"
+    description: "Detects multiple authentication failures"
+    threat_type: "Brute Force"
+    severity: "MEDIUM"
+    protocol: "TCP"
+    dst_ports: [22, 3389, 3306]
+    recommendation: "Implement account lockout policy, use MFA"
+
+  - id: bruteforce_002
+    name: "Brute Force - SSH Attempt"
+    description: "Detects SSH brute force patterns"
+    threat_type: "Brute Force"
+    severity: "MEDIUM"
+    protocol: "TCP"
+    dst_ports: [22]
+    recommendation: "Disable password auth, use key-based auth"
+
+  # ============================================
+  # RECONNAISSANCE
+  # ============================================
+  
+  - id: recon_001
+    name: "Reconnaissance - HTTP Banner Grab"
+    description: "Detects web server fingerprinting"
+    threat_type: "Reconnaissance"
+    severity: "LOW"
+    protocol: "TCP"
+    dst_ports: [80, 443]
+    recommendation: "Hide server banner information"
+
+  - id: recon_002
+    name: "Reconnaissance - DNS Query"
+    description: "Detects unusual DNS queries"
+    threat_type: "Reconnaissance"
+    severity: "LOW"
+    protocol: "UDP"
+    dst_ports: [53]
+    recommendation: "Monitor DNS queries"

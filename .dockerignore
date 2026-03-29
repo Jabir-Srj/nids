@@ -1,0 +1,86 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+.circleci
+
+# Documentation
+docs/
+README.md
+LICENSE
+*.md
+
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm
+.yarn-cache
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+htmlcov/
+.coverage
+.tox/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+tests/
+test_*
+*.test.js
+*.test.ts
+jest.config.js
+pytest.ini
+coverage/
+
+# Frontend
+frontend/dist
+frontend/node_modules
+frontend/.parcel-cache
+
+# Temporary
+.tmp/
+tmp/
+temp/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

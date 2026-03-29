@@ -1,0 +1,33 @@
+Flask==3.0.0
+Flask-CORS==4.0.0
+Flask-SQLAlchemy==3.1.1
+Werkzeug==3.0.1
+
+# Networking & Packet Analysis
+scapy>=2.6.0
+
+# Database
+SQLAlchemy==2.0.48
+
+# ML & Data Science (pre-built wheels)
+scikit-learn>=1.4.0
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+pyyaml==6.0.1
+python-dateutil==2.8.2
+
+# API & Async
+gunicorn==21.2.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Development
+black>=23.0.0
+pylint>=3.0.0
+
