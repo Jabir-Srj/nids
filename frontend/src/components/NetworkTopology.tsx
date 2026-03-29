@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useEffect, useState } from 'react'
 import { Network, AlertCircle, Zap } from 'lucide-react'
 
 interface Node {
