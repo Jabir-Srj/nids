@@ -24,6 +24,7 @@ export default function AISettings() {
   const [formData, setFormData] = useState({
     api_key: '',
     base_url: 'http://localhost:11434',
+    custom_url: 'https://your-api.com/v1/chat/completions',
   })
 
   // Fetch providers and config
@@ -90,6 +91,11 @@ export default function AISettings() {
 
       if (activeProvider === 'ollama') {
         payload.config.base_url = formData.base_url
+      } else if (activeProvider === 'lmstudio') {
+        payload.config.base_url = formData.base_url
+      } else if (activeProvider === 'custom') {
+        payload.config.base_url = formData.custom_url
+        payload.config.api_key = formData.api_key
       } else {
         payload.config.api_key = formData.api_key
       }
@@ -236,6 +242,48 @@ export default function AISettings() {
               </a>
             </p>
           </div>
+        ) : activeProvider === 'lmstudio' ? (
+          <div>
+            <label className="block text-gray-300 font-semibold mb-2">LM Studio Base URL</label>
+            <input
+              type="text"
+              value={formData.base_url}
+              onChange={(e) => setFormData({ ...formData, base_url: e.target.value })}
+              placeholder="http://localhost:1234"
+              className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 mb-4"
+            />
+            <p className="text-xs text-gray-400 mb-4">
+              Download LM Studio from{' '}
+              <a href="https://lmstudio.ai" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                lmstudio.ai
+              </a>
+              . Make sure to enable local server in LM Studio settings.
+            </p>
+          </div>
+        ) : activeProvider === 'custom' ? (
+          <div className="space-y-4">
+            <div>
+              <label className="block text-gray-300 font-semibold mb-2">API Endpoint URL</label>
+              <input
+                type="text"
+                value={formData.custom_url}
+                onChange={(e) => setFormData({ ...formData, custom_url: e.target.value })}
+                placeholder="https://your-api.com/v1/chat/completions"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+              />
+              <p className="text-xs text-gray-400 mt-1">OpenAI-compatible endpoint URL</p>
+            </div>
+            <div>
+              <label className="block text-gray-300 font-semibold mb-2">API Key (Optional)</label>
+              <input
+                type="password"
+                value={formData.api_key}
+                onChange={(e) => setFormData({ ...formData, api_key: e.target.value })}
+                placeholder="Optional API key for authentication"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+          </div>
         ) : (
           <div>
             <label className="block text-gray-300 font-semibold mb-2">API Key</label>
@@ -249,7 +297,7 @@ export default function AISettings() {
           </div>
         )}
 
-        <div className="flex gap-3">
+        <div className="flex gap-3 mt-4">
           <button
             onClick={handleSaveConfig}
             className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"

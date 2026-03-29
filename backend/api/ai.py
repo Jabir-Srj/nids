@@ -33,11 +33,23 @@ class AIModelManager:
             'model': 'llama2',
             'requires': ['base_url'],
         },
+        'lmstudio': {
+            'name': 'LM Studio (Local)',
+            'endpoint': 'http://localhost:1234/v1/chat/completions',
+            'model': 'local-model',
+            'requires': ['base_url'],
+        },
         'huggingface': {
             'name': 'Hugging Face',
             'endpoint': 'https://api-inference.huggingface.co/models',
             'model': 'meta-llama/Llama-2-7b-chat-hf',
             'requires': ['api_key'],
+        },
+        'custom': {
+            'name': 'Custom API Endpoint',
+            'endpoint': 'https://your-api.com/v1/chat/completions',
+            'model': 'custom-model',
+            'requires': ['base_url', 'api_key'],
         },
     }
     
@@ -52,7 +64,10 @@ class AIModelManager:
             'claude_api_key': os.getenv('ANTHROPIC_API_KEY', ''),
             'gemini_api_key': os.getenv('GOOGLE_API_KEY', ''),
             'ollama_base_url': os.getenv('OLLAMA_BASE_URL', 'http://localhost:11434'),
+            'lmstudio_base_url': os.getenv('LMSTUDIO_BASE_URL', 'http://localhost:1234'),
             'huggingface_api_key': os.getenv('HUGGINGFACE_API_KEY', ''),
+            'custom_base_url': os.getenv('CUSTOM_API_URL', ''),
+            'custom_api_key': os.getenv('CUSTOM_API_KEY', ''),
             'active_provider': os.getenv('AI_PROVIDER', 'ollama'),
         }
         return self.config
@@ -71,8 +86,13 @@ class AIModelManager:
                 os.environ['GOOGLE_API_KEY'] = config.get('api_key', '')
             elif provider == 'ollama':
                 os.environ['OLLAMA_BASE_URL'] = config.get('base_url', 'http://localhost:11434')
+            elif provider == 'lmstudio':
+                os.environ['LMSTUDIO_BASE_URL'] = config.get('base_url', 'http://localhost:1234')
             elif provider == 'huggingface':
                 os.environ['HUGGINGFACE_API_KEY'] = config.get('api_key', '')
+            elif provider == 'custom':
+                os.environ['CUSTOM_API_URL'] = config.get('base_url', '')
+                os.environ['CUSTOM_API_KEY'] = config.get('api_key', '')
             
             os.environ['AI_PROVIDER'] = provider
             self.load_config()
@@ -95,8 +115,12 @@ class AIModelManager:
             return self._call_gemini(prompt)
         elif provider == 'ollama':
             return self._call_ollama(prompt)
+        elif provider == 'lmstudio':
+            return self._call_lmstudio(prompt)
         elif provider == 'huggingface':
             return self._call_huggingface(prompt)
+        elif provider == 'custom':
+            return self._call_custom(prompt)
         
         return None
     
@@ -266,6 +290,80 @@ Be concise and technical."""
         except Exception as e:
             print(f"Hugging Face error: {e}")
             return None
+    
+    def _call_lmstudio(self, prompt: str) -> Optional[str]:
+        """Call LM Studio API (local OpenAI-compatible endpoint)"""
+        try:
+            base_url = os.getenv('LMSTUDIO_BASE_URL', 'http://localhost:1234')
+            
+            headers = {'Content-Type': 'application/json'}
+            
+            data = {
+                'model': 'local-model',
+                'messages': [{'role': 'user', 'content': prompt}],
+                'temperature': 0.7,
+                'max_tokens': 500,
+            }
+            
+            response = requests.post(
+                f'{base_url}/v1/chat/completions',
+                headers=headers,
+                json=data,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                return response.json()['choices'][0]['message']['content']
+            return None
+        except Exception as e:
+            print(f"LM Studio error: {e}")
+            return None
+    
+    def _call_custom(self, prompt: str) -> Optional[str]:
+        """Call custom API endpoint"""
+        try:
+            base_url = os.getenv('CUSTOM_API_URL', '')
+            api_key = os.getenv('CUSTOM_API_KEY', '')
+            
+            if not base_url:
+                return None
+            
+            headers = {
+                'Content-Type': 'application/json',
+            }
+            
+            if api_key:
+                headers['Authorization'] = f'Bearer {api_key}'
+            
+            # Try OpenAI-compatible format first
+            data = {
+                'model': 'custom-model',
+                'messages': [{'role': 'user', 'content': prompt}],
+                'temperature': 0.7,
+                'max_tokens': 500,
+            }
+            
+            response = requests.post(
+                base_url,
+                headers=headers,
+                json=data,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                try:
+                    # Try OpenAI format
+                    return response.json()['choices'][0]['message']['content']
+                except (KeyError, IndexError, TypeError):
+                    try:
+                        # Try direct text response
+                        return response.json().get('response', response.text)
+                    except:
+                        return response.text
+            return None
+        except Exception as e:
+            print(f"Custom API error: {e}")
+            return None
 
 # Initialize manager
 ai_manager = AIModelManager()
@@ -299,8 +397,12 @@ def get_config():
             has_config = bool(os.getenv('GOOGLE_API_KEY'))
         elif provider == 'ollama':
             has_config = True  # Always available locally
+        elif provider == 'lmstudio':
+            has_config = True  # Always available locally
         elif provider == 'huggingface':
             has_config = bool(os.getenv('HUGGINGFACE_API_KEY'))
+        elif provider == 'custom':
+            has_config = bool(os.getenv('CUSTOM_API_URL'))
         
         config['providers'][provider] = {
             'configured': has_config,
@@ -375,6 +477,10 @@ def health_check():
             base_url = os.getenv('OLLAMA_BASE_URL', 'http://localhost:11434')
             response = requests.get(f'{base_url}/api/tags', timeout=5)
             available = response.status_code == 200
+        elif provider == 'lmstudio':
+            base_url = os.getenv('LMSTUDIO_BASE_URL', 'http://localhost:1234')
+            response = requests.get(f'{base_url}/v1/models', timeout=5)
+            available = response.status_code == 200
         elif provider == 'openai':
             available = bool(os.getenv('OPENAI_API_KEY'))
         elif provider == 'claude':
@@ -383,6 +489,8 @@ def health_check():
             available = bool(os.getenv('GOOGLE_API_KEY'))
         elif provider == 'huggingface':
             available = bool(os.getenv('HUGGINGFACE_API_KEY'))
+        elif provider == 'custom':
+            available = bool(os.getenv('CUSTOM_API_URL'))
         else:
             available = False
         
