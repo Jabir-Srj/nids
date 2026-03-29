@@ -5,25 +5,25 @@
 @tailwind utilities;
 
 :root {
-  /* Claude Light Theme */
-  --bg-primary: #FAFAF8;
-  --bg-secondary: #f5f3f0;
-  --bg-tertiary: #ebe8e3;
-  --text-primary: #1a1a1a;
-  --text-secondary: #4a4a4a;
-  --text-muted: #8a8a8a;
-  --border-color: #e5e3e0;
+  /* Dark Mode Theme */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
   
   /* Accent colors */
-  --neon-cyan: #0066cc;
-  --neon-pink: #cc0066;
-  --neon-yellow: #cc8800;
-  --neon-green: #006633;
-  --neon-purple: #6600cc;
+  --neon-cyan: #06b6d4;
+  --neon-pink: #ec4899;
+  --neon-yellow: #f59e0b;
+  --neon-green: #10b981;
+  --neon-purple: #a855f7;
   
   /* Shadows */
-  --shadow-neon-cyan: 0 2px 8px rgba(0, 102, 204, 0.12);
-  --shadow-glass: 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  --shadow-neon-cyan: 0 2px 8px rgba(6, 182, 212, 0.16);
+  --shadow-glass: 0 2px 8px rgba(0, 0, 0, 0.24), inset 0 1px 1px rgba(255, 255, 255, 0.08);
 }
 
 * {
@@ -80,12 +80,12 @@
   .glass-card:hover {
     background: var(--bg-tertiary);
     border-color: var(--neon-cyan);
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.08);
   }
 
   .glass-card-lg {
     @apply glass-card;
-    box-shadow: 0 4px 16px rgba(0, 102, 204, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.08);
   }
 
   .glass-input {
@@ -101,12 +101,12 @@
   .glass-input:focus {
     border-color: var(--neon-cyan);
     outline: none;
-    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.16), inset 0 1px 2px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.20), inset 0 1px 2px rgba(0, 0, 0, 0.24);
   }
 
   .glass-button {
     @apply px-6 py-2.5 rounded-md font-semibold;
-    background: rgba(0, 102, 204, 0.08);
+    background: rgba(6, 182, 212, 0.08);
     border: 1px solid var(--border-color);
     color: var(--neon-cyan);
     transition: all 0.3s ease;
@@ -116,19 +116,19 @@
 
   .glass-button:hover {
     border-color: var(--neon-cyan);
-    background: rgba(0, 102, 204, 0.12);
-    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.12);
+    background: rgba(6, 182, 212, 0.16);
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.20);
     transform: translateY(-2px);
   }
 
   .glass-button-primary {
     @apply glass-button;
-    background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(102, 0, 204, 0.1));
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(168, 85, 247, 0.12));
     border-color: var(--border-color);
   }
 
   .glass-button-primary:hover {
-    background: linear-gradient(135deg, rgba(0, 102, 204, 0.15), rgba(102, 0, 204, 0.15));
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.20), rgba(168, 85, 247, 0.20));
   }
 }
 
@@ -136,34 +136,34 @@
 @layer components {
   .neon-glow-cyan {
     @apply text-neon-cyan;
-    text-shadow: 0 0 10px rgba(0, 102, 204, 0.2);
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
   }
 
   .neon-glow-pink {
     @apply text-neon-pink;
-    text-shadow: 0 0 10px rgba(204, 0, 102, 0.2);
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
   }
 
   .neon-glow-green {
     @apply text-neon-green;
-    text-shadow: 0 0 10px rgba(0, 102, 51, 0.2);
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
   }
 
   .neon-glow-yellow {
     @apply text-neon-yellow;
-    text-shadow: 0 0 10px rgba(204, 136, 0, 0.2);
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
   }
 
   .neon-box-cyan {
-    box-shadow: 0 0 12px rgba(0, 102, 204, 0.16), inset 0 0 8px rgba(0, 102, 204, 0.08);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.20), inset 0 0 8px rgba(6, 182, 212, 0.08);
   }
 
   .neon-box-pink {
-    box-shadow: 0 0 12px rgba(204, 0, 102, 0.16), inset 0 0 8px rgba(204, 0, 102, 0.08);
+    box-shadow: 0 0 12px rgba(236, 72, 153, 0.20), inset 0 0 8px rgba(236, 72, 153, 0.08);
   }
 
   .neon-box-green {
-    box-shadow: 0 0 12px rgba(0, 102, 51, 0.16), inset 0 0 8px rgba(0, 102, 51, 0.08);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.20), inset 0 0 8px rgba(16, 185, 129, 0.08);
   }
 }
 
@@ -293,42 +293,42 @@
 @layer components {
   .badge-critical {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(204, 0, 102, 0.08);
-    color: #cc0066;
-    border: 1px solid rgba(204, 0, 102, 0.2);
-    box-shadow: 0 2px 4px rgba(204, 0, 102, 0.08);
+    background: rgba(236, 72, 153, 0.12);
+    color: #ec4899;
+    border: 1px solid rgba(236, 72, 153, 0.24);
+    box-shadow: 0 2px 4px rgba(236, 72, 153, 0.12);
   }
 
   .badge-high {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(204, 136, 0, 0.08);
-    color: #cc8800;
-    border: 1px solid rgba(204, 136, 0, 0.2);
-    box-shadow: 0 2px 4px rgba(204, 136, 0, 0.08);
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.24);
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.12);
   }
 
   .badge-medium {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(102, 0, 204, 0.08);
-    color: #6600cc;
-    border: 1px solid rgba(102, 0, 204, 0.2);
-    box-shadow: 0 2px 4px rgba(102, 0, 204, 0.08);
+    background: rgba(168, 85, 247, 0.12);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.24);
+    box-shadow: 0 2px 4px rgba(168, 85, 247, 0.12);
   }
 
   .badge-low {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(0, 102, 51, 0.08);
-    color: #006633;
-    border: 1px solid rgba(0, 102, 51, 0.2);
-    box-shadow: 0 2px 4px rgba(0, 102, 51, 0.08);
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.24);
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.12);
   }
 
   .badge-info {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(0, 102, 204, 0.08);
-    color: #0066cc;
-    border: 1px solid rgba(0, 102, 204, 0.2);
-    box-shadow: 0 2px 4px rgba(0, 102, 204, 0.08);
+    background: rgba(6, 182, 212, 0.12);
+    color: #06b6d4;
+    border: 1px solid rgba(6, 182, 212, 0.24);
+    box-shadow: 0 2px 4px rgba(6, 182, 212, 0.12);
   }
 }
 
@@ -339,7 +339,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-tertiary);
+  background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -356,7 +356,7 @@
 @layer components {
   .focus-ring {
     @apply outline-none;
-    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12), 0 0 0 6px rgba(0, 102, 204, 0.04);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.16), 0 0 0 6px rgba(6, 182, 212, 0.08);
   }
 
   button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
@@ -385,8 +385,8 @@
   /* Grid patterns for design feel */
   .grid-pattern {
     background-image: 
-      linear-gradient(rgba(0, 102, 204, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 102, 204, 0.04) 1px, transparent 1px);
+      linear-gradient(rgba(6, 182, 212, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6, 182, 212, 0.08) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 }

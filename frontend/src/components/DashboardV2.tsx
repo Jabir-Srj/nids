@@ -465,11 +465,9 @@ interface HealthIndicatorProps {
 
 function HealthIndicator({ label, value }: HealthIndicatorProps) {
   const getColor = () => {
-    if (value > 80) return '#d97316'
-    if (value > 60) return '#d97706'
-    return '#8acc16'
-  }
-    return '#22c55e'
+    if (value > 80) return '#ef4444'
+    if (value > 60) return '#f59e0b'
+    return '#10b981'
   }
 
   const color = getColor()
@@ -477,7 +475,7 @@ function HealthIndicator({ label, value }: HealthIndicatorProps) {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold" style={{ color: '#2d2d2d' }}>
+        <span className="text-sm font-semibold" style={{ color: '#f1f5f9' }}>
           {label}
         </span>
         <span className="text-sm font-bold" style={{ color }}>
@@ -486,7 +484,7 @@ function HealthIndicator({ label, value }: HealthIndicatorProps) {
       </div>
       <div
         className="w-full rounded-full h-3 overflow-hidden shadow-sm"
-        style={{ backgroundColor: 'rgb(229, 227, 224)' }}
+        style={{ backgroundColor: '#475569' }}
       >
         <div
           className="h-3 rounded-full shadow-md transition-all duration-500"
@@ -508,19 +506,19 @@ function StatRow({ label, value, icon }: StatRowProps) {
     <div
       className="flex items-center justify-between p-3 rounded-md transition-all duration-200"
       style={{
-        backgroundColor: 'rgb(245, 243, 240)',
+        backgroundColor: '#1e293b',
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.backgroundColor = 'rgb(237, 233, 230)';
+        e.currentTarget.style.backgroundColor = '#334155';
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = 'rgb(245, 243, 240)';
+        e.currentTarget.style.backgroundColor = '#1e293b';
       }}
     >
-      <span className="text-sm font-semibold" style={{ color: '#2d2d2d' }}>
+      <span className="text-sm font-semibold" style={{ color: '#f1f5f9' }}>
         {icon} {label}
       </span>
-      <span className="font-bold" style={{ color: '#1a1a1a' }}>
+      <span className="font-bold" style={{ color: '#06b6d4' }}>
         {value}
       </span>
     </div>
@@ -535,13 +533,13 @@ function SeverityBadge({ severity }: SeverityBadgeProps) {
   const getColors = () => {
     switch (severity?.toLowerCase()) {
       case 'critical':
-        return { bg: 'rgba(249, 115, 22, 0.1)', text: '#f97316', border: '#f97316' }
+        return { bg: 'rgba(239, 68, 68, 0.12)', text: '#ef4444', border: '#ef4444' }
       case 'high':
-        return { bg: 'rgba(217, 119, 6, 0.1)', text: '#d97706', border: '#d97706' }
+        return { bg: 'rgba(245, 158, 11, 0.12)', text: '#f59e0b', border: '#f59e0b' }
       case 'medium':
-        return { bg: 'rgba(252, 211, 77, 0.1)', text: '#fcd34d', border: '#fcd34d' }
+        return { bg: 'rgba(168, 85, 247, 0.12)', text: '#a855f7', border: '#a855f7' }
       default:
-        return { bg: 'rgba(34, 197, 94, 0.1)', text: '#22c55e', border: '#22c55e' }
+        return { bg: 'rgba(16, 185, 129, 0.12)', text: '#10b981', border: '#10b981' }
     }
   }
 

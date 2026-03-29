@@ -60,7 +60,7 @@ export default function DashboardV2() {
     return (_jsxs("div", { className: "space-y-6", children: [_jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4", children: [_jsx(KPICard, { title: "Total Alerts", value: stats.total_alerts, change: "+12%", icon: _jsx(AlertTriangle, { className: "w-5 h-5" }), severity: "critical" }), _jsx(KPICard, { title: "Critical Threats", value: stats.critical_count, change: "-8%", icon: _jsx(Shield, { className: "w-5 h-5" }), severity: "warning" }), _jsx(KPICard, { title: "Threats Blocked", value: stats.threats_blocked, change: "+24%", icon: _jsx(Lock, { className: "w-5 h-5" }), severity: "success" }), _jsx(KPICard, { title: "System Uptime", value: `${stats.uptime_percent}%`, change: "Stable", icon: _jsx(Activity, { className: "w-5 h-5" }), severity: "info" })] }), _jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-4", children: [_jsxs("div", { className: "rounded-lg p-6 border transition-all duration-300 hover:shadow-md", style: {
                             backgroundColor: 'rgb(255, 255, 255)',
                             borderColor: 'rgb(229, 227, 224)',
-                        }, children: [_jsxs("h3", { className: "text-lg font-serif-display font-bold mb-4 flex items-center gap-2", style: { color: '#1a1a1a' }, children: [_jsx(TrendingUp, { className: "w-5 h-5", style: { color: '#d97706' } }), "Threat Distribution"] }), _jsxs("div", { className: "space-y-4", children: [_jsx(ThreatBar, { label: "Critical", value: 15, color: "#f97316" }), _jsx(ThreatBar, { label: "High", value: 28, color: "#d97706" }), _jsx(ThreatBar, { label: "Medium", value: 42, color: "#fcd34d" }), _jsx(ThreatBar, { label: "Low", value: 15, color: "#22c55e" })] })] }), _jsxs("div", { className: "rounded-lg p-6 border transition-all duration-300 hover:shadow-md", style: {
+                        }, children: [_jsxs("h3", { className: "text-lg font-serif-display font-bold mb-4 flex items-center gap-2", style: { color: '#1a1a1a' }, children: [_jsx(TrendingUp, { className: "w-5 h-5", style: { color: '#d97706' } }), "Threat Distribution"] }), _jsxs("div", { className: "space-y-4", children: [_jsx(ThreatBar, { label: "Critical", value: 15, color: "#d97316" }), _jsx(ThreatBar, { label: "High", value: 28, color: "#d97706" }), _jsx(ThreatBar, { label: "Medium", value: 42, color: "#d4a574" }), _jsx(ThreatBar, { label: "Low", value: 15, color: "#8acc16" })] })] }), _jsxs("div", { className: "rounded-lg p-6 border transition-all duration-300 hover:shadow-md", style: {
                             backgroundColor: 'rgb(255, 255, 255)',
                             borderColor: 'rgb(229, 227, 224)',
                         }, children: [_jsxs("h3", { className: "text-lg font-serif-display font-bold mb-4 flex items-center gap-2", style: { color: '#1a1a1a' }, children: [_jsx(Server, { className: "w-5 h-5", style: { color: '#3b82f6' } }), "System Health"] }), _jsxs("div", { className: "space-y-4", children: [_jsx(HealthIndicator, { label: "CPU Usage", value: systemHealth.cpu }), _jsx(HealthIndicator, { label: "Memory Usage", value: systemHealth.memory }), _jsx(HealthIndicator, { label: "Disk Usage", value: systemHealth.disk })] })] }), _jsxs("div", { className: "rounded-lg p-6 border transition-all duration-300 hover:shadow-md", style: {
@@ -108,13 +108,17 @@ function KPICard({ title, value, change, icon, severity }) {
     const getColors = () => {
         switch (severity) {
             case 'critical':
-                return { bg: 'rgba(249, 115, 22, 0.08)', border: 'rgb(249, 115, 22)', accent: '#f97316', text: '#f97316' };
+                // Warm rose/red for critical
+                return { bg: 'rgba(249, 115, 22, 0.08)', border: '#e5a7a1', accent: '#d97316', text: '#b85a54' };
             case 'warning':
-                return { bg: 'rgba(217, 119, 6, 0.08)', border: 'rgb(217, 119, 6)', accent: '#d97706', text: '#d97706' };
+                // Warm amber for warning
+                return { bg: 'rgba(217, 119, 6, 0.08)', border: '#e5d4b8', accent: '#d97706', text: '#b8860b' };
             case 'success':
-                return { bg: 'rgba(34, 197, 94, 0.08)', border: 'rgb(34, 197, 94)', accent: '#22c55e', text: '#22c55e' };
+                // Warm green for success
+                return { bg: 'rgba(132, 204, 22, 0.08)', border: '#c4d9a8', accent: '#8acc16', text: '#6b8e23' };
             default:
-                return { bg: 'rgba(59, 130, 246, 0.08)', border: 'rgb(59, 130, 246)', accent: '#3b82f6', text: '#3b82f6' };
+                // Warm slate/blue for info
+                return { bg: 'rgba(100, 116, 139, 0.08)', border: '#cbd5e1', accent: '#64748b', text: '#475569' };
         }
     };
     const colors = getColors();
@@ -132,34 +136,34 @@ function ThreatBar({ label, value, color }) {
 function HealthIndicator({ label, value }) {
     const getColor = () => {
         if (value > 80)
-            return '#f97316';
+            return '#ef4444';
         if (value > 60)
-            return '#d97706';
-        return '#22c55e';
+            return '#f59e0b';
+        return '#10b981';
     };
     const color = getColor();
-    return (_jsxs("div", { className: "space-y-2", children: [_jsxs("div", { className: "flex items-center justify-between", children: [_jsx("span", { className: "text-sm font-semibold", style: { color: '#2d2d2d' }, children: label }), _jsxs("span", { className: "text-sm font-bold", style: { color }, children: [Math.round(value), "%"] })] }), _jsx("div", { className: "w-full rounded-full h-3 overflow-hidden shadow-sm", style: { backgroundColor: 'rgb(229, 227, 224)' }, children: _jsx("div", { className: "h-3 rounded-full shadow-md transition-all duration-500", style: { width: `${value}%`, backgroundColor: color } }) })] }));
+    return (_jsxs("div", { className: "space-y-2", children: [_jsxs("div", { className: "flex items-center justify-between", children: [_jsx("span", { className: "text-sm font-semibold", style: { color: '#f1f5f9' }, children: label }), _jsxs("span", { className: "text-sm font-bold", style: { color }, children: [Math.round(value), "%"] })] }), _jsx("div", { className: "w-full rounded-full h-3 overflow-hidden shadow-sm", style: { backgroundColor: '#475569' }, children: _jsx("div", { className: "h-3 rounded-full shadow-md transition-all duration-500", style: { width: `${value}%`, backgroundColor: color } }) })] }));
 }
 function StatRow({ label, value, icon }) {
     return (_jsxs("div", { className: "flex items-center justify-between p-3 rounded-md transition-all duration-200", style: {
-            backgroundColor: 'rgb(245, 243, 240)',
+            backgroundColor: '#1e293b',
         }, onMouseEnter: (e) => {
-            e.currentTarget.style.backgroundColor = 'rgb(237, 233, 230)';
+            e.currentTarget.style.backgroundColor = '#334155';
         }, onMouseLeave: (e) => {
-            e.currentTarget.style.backgroundColor = 'rgb(245, 243, 240)';
-        }, children: [_jsxs("span", { className: "text-sm font-semibold", style: { color: '#2d2d2d' }, children: [icon, " ", label] }), _jsx("span", { className: "font-bold", style: { color: '#1a1a1a' }, children: value })] }));
+            e.currentTarget.style.backgroundColor = '#1e293b';
+        }, children: [_jsxs("span", { className: "text-sm font-semibold", style: { color: '#f1f5f9' }, children: [icon, " ", label] }), _jsx("span", { className: "font-bold", style: { color: '#06b6d4' }, children: value })] }));
 }
 function SeverityBadge({ severity }) {
     const getColors = () => {
         switch (severity?.toLowerCase()) {
             case 'critical':
-                return { bg: 'rgba(249, 115, 22, 0.1)', text: '#f97316', border: '#f97316' };
+                return { bg: 'rgba(239, 68, 68, 0.12)', text: '#ef4444', border: '#ef4444' };
             case 'high':
-                return { bg: 'rgba(217, 119, 6, 0.1)', text: '#d97706', border: '#d97706' };
+                return { bg: 'rgba(245, 158, 11, 0.12)', text: '#f59e0b', border: '#f59e0b' };
             case 'medium':
-                return { bg: 'rgba(252, 211, 77, 0.1)', text: '#fcd34d', border: '#fcd34d' };
+                return { bg: 'rgba(168, 85, 247, 0.12)', text: '#a855f7', border: '#a855f7' };
             default:
-                return { bg: 'rgba(34, 197, 94, 0.1)', text: '#22c55e', border: '#22c55e' };
+                return { bg: 'rgba(16, 185, 129, 0.12)', text: '#10b981', border: '#10b981' };
         }
     };
     const colors = getColors();
