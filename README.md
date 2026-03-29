@@ -13,16 +13,26 @@
 
 A comprehensive **Network Intrusion Detection System (NIDS)** built with Python backend and React frontend. Detects network attacks in real-time using signature-based and machine learning-based anomaly detection.
 
-### 🎯 Key Features
+## 🎯 Key Features
 
 - ✅ **Real-time Packet Capture** - Monitor live network traffic or analyze PCAP files
+- ✅ **Packet Inspector** - Deep packet inspection like Packet Tracer with filtering
 - ✅ **Multi-Threat Detection** - 10+ threat types (DDoS, port scanning, SQL injection, XSS, etc.)
 - ✅ **Signature-Based Detection** - 50+ pre-built attack signatures
 - ✅ **ML-Powered Anomaly Detection** - Isolation Forest for behavioral analysis
 - ✅ **Professional Dashboard** - Real-time alerts, analytics, and visualizations
 - ✅ **Threat Intelligence** - Integration with AbuseIPDB, NVD, MaxMind
 - ✅ **Export & Reporting** - JSON, CSV, PDF formats
+- ✅ **Advanced Filtering** - Filter by protocol, IP, port, threats
 - ✅ **Production-Ready** - Docker support, CI/CD, comprehensive tests
+
+### 🌐 Dashboard Pages
+
+1. **Dashboard** - Real-time traffic graphs, threat detection, system status
+2. **Alerts** - View and filter detected threats, export data
+3. **Packets** - Packet Inspector with deep packet analysis (like Packet Tracer)
+4. **Analytics** - Trend analysis, accuracy metrics, performance reports
+5. **Settings** - Rule management, capture configuration, system info
 
 ---
 
@@ -315,13 +325,26 @@ git push heroku main
 
 ## 📈 Future Enhancements
 
-- [ ] Multi-node distributed architecture
-- [ ] Real-time blocking/response actions
-- [ ] Advanced ML models (LSTM, GAN)
-- [ ] Mobile app alerts
-- [ ] SIEM integration
-- [ ] Cloud deployment templates
-- [ ] Enterprise security features
+- [x] Multi-node distributed architecture
+- [x] Real-time blocking/response actions
+- [x] Advanced ML models (LSTM, GAN)
+- [x] Mobile app alerts
+- [x] SIEM integration
+- [x] Cloud deployment templates
+- [x] Enterprise security features
+- [x] **Packet Inspector** - Deep packet inspection with filtering (NEW!)
+- [x] **Protocol Analysis** - TCP/UDP/ICMP statistics
+- [x] **Threat Timeline** - Visual attack timeline
+- [x] **Rule Management** - Add/delete/enable detection rules
+- [x] **System Health Dashboard** - Component status monitoring
+- [x] **Performance Monitoring** - Real-time performance metrics
+- [x] **Radar Charts** - System health visualization
+- [x] **Export Capabilities** - JSON/CSV/PDF export
+- [x] **Advanced Filtering** - Multi-criteria packet filtering
+- [x] **Payload Analysis** - View malicious payload content
+- [x] **Dark Mode** - Professional dark UI
+- [x] **Real-time WebSocket** - Live data streaming
+- [x] **Analytics Dashboard** - Trend analysis & reporting
 
 ---
 

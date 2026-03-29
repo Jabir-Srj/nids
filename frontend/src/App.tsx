@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard'
 import AlertList from './components/AlertList'
 import Analytics from './components/Analytics'
 import Settings from './components/Settings'
+import PacketInspector from './components/PacketInspector'
 import './index.css'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
     { id: 'alerts', label: 'Alerts', icon: '🚨' },
+    { id: 'packets', label: 'Packets', icon: '📦' },
     { id: 'analytics', label: 'Analytics', icon: '📈' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },
   ]
@@ -84,6 +86,7 @@ function App() {
         <div className="p-8">
           {currentPage === 'dashboard' && <Dashboard />}
           {currentPage === 'alerts' && <AlertList />}
+          {currentPage === 'packets' && <PacketInspector />}
           {currentPage === 'analytics' && <Analytics />}
           {currentPage === 'settings' && <Settings />}
         </div>
