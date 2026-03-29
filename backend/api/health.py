@@ -12,7 +12,7 @@ from datetime import datetime
 import threading
 from typing import Dict, Any
 
-health_bp = Blueprint('health', __name__, url_prefix='/api/health')
+health_bp = Blueprint('health', __name__, url_prefix='/api/system')
 logger = logging.getLogger(__name__)
 
 DB_PATH = 'backend/database/nids.db'
@@ -24,7 +24,7 @@ def _get_db():
     return sqlite3.connect(DB_PATH)
 
 
-@health_bp.route('', methods=['GET'])
+@health_bp.route('/health', methods=['GET'])
 def system_health():
     """Get overall system health status"""
     try:

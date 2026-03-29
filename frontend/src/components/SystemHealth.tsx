@@ -86,22 +86,17 @@ export default function SystemHealth() {
   useEffect(() => {
     const fetchHealth = async () => {
       try {
-        // Try multiple health endpoints
-        let response = await fetch('http://localhost:5000/api/health')
+        // Try the system health endpoint
+        const response = await fetch('http://localhost:5000/api/system/health')
         if (!response.ok) throw new Error('Failed to fetch health')
-        let data = await response.json()
-
-        // If we get basic health (no system data), use mock data for demo
-        if (!data.system) {
-          console.log('Basic health endpoint reached, using mock data for demo')
-          data = getMockHealthData()
-        }
-
+        const data = await response.json()
         setHealth(data)
         setError(null)
+        console.log('Real system health data received:', data)
       } catch (err) {
         console.error('Health fetch error:', err)
         // Use mock data as fallback
+        console.log('Falling back to mock data')
         setHealth(getMockHealthData())
         setError(null)
       } finally {
@@ -163,12 +158,6 @@ export default function SystemHealth() {
           System Status: <span className="capitalize">{health.status}</span>
         </h2>
       </div>
-
-      {error && (
-        <div className="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4 text-yellow-300 text-sm">
-          ℹ️ Using demo/mock data (backend health endpoint not fully initialized)
-        </div>
-      )}
 
       {/* CPU Status */}
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
