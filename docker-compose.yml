@@ -1,40 +1,190 @@
 version: '3.8'
 
 services:
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile.backend
-    ports:
-      - "5000:5000"
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: nids-postgres
     environment:
-      - FLASK_ENV=production
-      - DEBUG=False
-      - API_HOST=0.0.0.0
-      - API_PORT=5000
+      POSTGRES_USER: nids_user
+      POSTGRES_PASSWORD: nids_secure_password_2026
+      POSTGRES_DB: nids_db
+      POSTGRES_INITDB_ARGS: "-c max_connections=200"
+    ports:
+      - "5432:5432"
     volumes:
-      - ./backend:/app
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - nids-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      test: ["CMD-SHELL", "pg_isready -U nids_user -d nids_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: nids-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - nids-network
+    command: redis-server --appendonly yes --requirepass redis_secure_password_2026
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # NIDS Backend
+  nids-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nids-backend
+    environment:
+      DATABASE_URL: postgresql://nids_user:nids_secure_password_2026@postgres:5432/nids_db
+      REDIS_URL: redis://:redis_secure_password_2026@redis:6379/0
+      FLASK_ENV: production
+      DEBUG: 'false'
+      SMTP_SERVER: ${SMTP_SERVER}
+      SMTP_EMAIL: ${SMTP_EMAIL}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-your-secret-key-change-this}
+      VIRUSTOTAL_API_KEY: ${VIRUSTOTAL_API_KEY}
+      IPQUALITYSCORE_API_KEY: ${IPQUALITYSCORE_API_KEY}
+      ABUSEIPDB_API_KEY: ${ABUSEIPDB_API_KEY}
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/backend
+      - ./uploads:/app/uploads
+      - ./reports:/app/reports
+    networks:
+      - nids-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 5s
 
-  frontend:
+  # NIDS Frontend
+  nids-frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nids-frontend
     ports:
       - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:5000
+      REACT_APP_WS_URL: ws://localhost:5000
     depends_on:
-      - backend
+      - nids-backend
+    volumes:
+      - ./frontend/src:/app/src
     networks:
       - nids-network
+
+  # Prometheus Metrics
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: nids-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - nids-network
+    depends_on:
+      - nids-backend
+
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: nids-grafana
+    ports:
+      - "3001:3000"
     environment:
-      - REACT_APP_API_URL=http://backend:5000
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_INSTALL_PLUGINS: grafana-piechart-panel
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - nids-network
+    depends_on:
+      - prometheus
+
+  # ELK Stack - Elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.0
+    container_name: nids-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - nids-network
+
+  # ELK Stack - Kibana
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.6.0
+    container_name: nids-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - nids-network
+
+  # ELK Stack - Logstash
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.6.0
+    container_name: nids-logstash
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./monitoring/logstash/pipeline:/usr/share/logstash/pipeline
+    environment:
+      - "LS_JAVA_OPTS=-Xmx256m -Xms256m"
+    depends_on:
+      - elasticsearch
+    networks:
+      - nids-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
 
 networks:
   nids-network:

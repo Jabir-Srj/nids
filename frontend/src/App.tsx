@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import Dashboard from './components/Dashboard'
+import DashboardV2 from './components/DashboardV2'
 import AlertList from './components/AlertList'
 import Analytics from './components/Analytics'
 import Settings from './components/Settings'
 import PacketInspector from './components/PacketInspector'
 import GeoMap from './components/GeoMap'
+import NetworkTopology from './components/NetworkTopology'
+import AdvancedFilters from './components/AdvancedFilters'
 import './index.css'
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
     { id: 'alerts', label: 'Alerts', icon: '🚨' },
     { id: 'packets', label: 'Packets', icon: '📦' },
     { id: 'geomap', label: 'GeoMap', icon: '🌍' },
+    { id: 'network', label: 'Network', icon: '🔗' },
+    { id: 'filters', label: 'Filters', icon: '🔍' },
     { id: 'analytics', label: 'Analytics', icon: '📈' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },
   ]
@@ -86,10 +90,12 @@ function App() {
 
         {/* Page Content */}
         <div className="p-8">
-          {currentPage === 'dashboard' && <Dashboard />}
+          {currentPage === 'dashboard' && <DashboardV2 />}
           {currentPage === 'alerts' && <AlertList />}
           {currentPage === 'packets' && <PacketInspector />}
           {currentPage === 'geomap' && <GeoMap />}
+          {currentPage === 'network' && <NetworkTopology />}
+          {currentPage === 'filters' && <AdvancedFilters />}
           {currentPage === 'analytics' && <Analytics />}
           {currentPage === 'settings' && <Settings />}
         </div>
