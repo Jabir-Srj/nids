@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Globe, AlertCircle } from 'lucide-react'
+import { mockGeoData } from '../services/mockData'
 
 interface Threat {
   id: string
@@ -40,6 +41,19 @@ export default function GeoMap() {
         setLoading(false)
       } catch (error) {
         console.error('Failed to fetch threats:', error)
+        // Use mock geo data as fallback
+        const mockThreats: Threat[] = mockGeoData.map((item, idx) => ({
+          id: `threat-${idx}`,
+          source_ip: `203.0.${Math.floor(Math.random()*256)}.${Math.floor(Math.random()*256)}`,
+          dest_ip: `10.0.0.${Math.floor(Math.random()*255)}`,
+          threat_type: 'Network Threat',
+          severity: item.severity,
+          country: item.country,
+          latitude: Math.random() * 60,
+          longitude: Math.random() * 180 - 90,
+        }))
+        setThreats(mockThreats)
+        generateMapUrl(mockThreats)
         setLoading(false)
       }
     }
