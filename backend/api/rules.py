@@ -309,32 +309,20 @@ def update_rule(rule_id):
             # Build update query
             update_fields = []
             params = []
+            allowed_fields = {'name', 'pattern', 'severity', 'threat_type', 'description', 'enabled'}
             
-            if 'name' in data:
-                update_fields.append('name = ?')
-                params.append(data['name'])
-            if 'pattern' in data:
-                update_fields.append('pattern = ?')
-                params.append(data['pattern'])
-            if 'severity' in data:
-                update_fields.append('severity = ?')
-                params.append(data['severity'])
-            if 'threat_type' in data:
-                update_fields.append('threat_type = ?')
-                params.append(data['threat_type'])
-            if 'description' in data:
-                update_fields.append('description = ?')
-                params.append(data['description'])
-            if 'enabled' in data:
-                update_fields.append('enabled = ?')
-                params.append(data['enabled'])
+            for field in allowed_fields:
+                if field in data:
+                    update_fields.append(f'{field} = ?')
+                    params.append(data[field])
             
-            update_fields.append('updated_at = ?')
-            params.append(datetime.utcnow().isoformat())
-            params.append(rule_id)
-            
-            query = f"UPDATE rules SET {', '.join(update_fields)} WHERE id = ?"
-            cursor.execute(query, params)
+            if update_fields:
+                update_fields.append('updated_at = ?')
+                params.append(datetime.utcnow().isoformat())
+                params.append(rule_id)
+                
+                query = f"UPDATE rules SET {', '.join(update_fields)} WHERE id = ?"
+                cursor.execute(query, params)
             conn.commit()
             conn.close()
         

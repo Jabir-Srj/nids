@@ -195,8 +195,9 @@ def update_threshold(threshold_id: str):
             # Update
             update_fields = []
             params = []
+            allowed_fields = {'threat_type', 'severity', 'threshold_value', 'time_window_minutes', 'enabled'}
             
-            for field in ['threat_type', 'severity', 'threshold_value', 'time_window_minutes', 'enabled']:
+            for field in allowed_fields:
                 if field in data:
                     update_fields.append(f'{field} = ?')
                     params.append(data[field])

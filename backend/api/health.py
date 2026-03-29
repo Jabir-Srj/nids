@@ -135,7 +135,7 @@ def database_health():
             
             table_info = {}
             for table in tables:
-                cursor.execute(f'SELECT COUNT(*) FROM {table}')
+                cursor.execute('SELECT COUNT(*) FROM ' + table)
                 count = cursor.fetchone()[0]
                 table_info[table] = {'count': count}
             
@@ -247,8 +247,8 @@ def alert_health():
             # Recent alert rate (alerts per hour)
             cursor.execute('''
                 SELECT COUNT(*) FROM alerts
-                WHERE timestamp > datetime('now', '-1 hour')
-            ''')
+                WHERE timestamp > datetime('now', ?)
+            ''', ('-1 hour',))
             alerts_per_hour = cursor.fetchone()[0]
             
             conn.close()

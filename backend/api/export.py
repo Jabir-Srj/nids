@@ -170,46 +170,46 @@ def export_report_summary():
             cursor = conn.cursor()
             
             # Total alerts
-            cursor.execute(f'''
+            cursor.execute('''
                 SELECT COUNT(*) FROM alerts
-                WHERE timestamp > datetime('now', '-{hours} hours')
-            ''')
+                WHERE timestamp > datetime('now', ?)
+            ''', (f'-{hours} hours',))
             total_alerts = cursor.fetchone()[0]
             
             # Severity breakdown
-            cursor.execute(f'''
+            cursor.execute('''
                 SELECT severity, COUNT(*) as count
                 FROM alerts
-                WHERE timestamp > datetime('now', '-{hours} hours')
+                WHERE timestamp > datetime('now', ?)
                 GROUP BY severity
-            ''')
+            ''', (f'-{hours} hours',))
             severity_dist = dict(cursor.fetchall())
             
             # Threat types
-            cursor.execute(f'''
+            cursor.execute('''
                 SELECT threat_type, COUNT(*) as count
                 FROM alerts
-                WHERE timestamp > datetime('now', '-{hours} hours')
+                WHERE timestamp > datetime('now', ?)
                 GROUP BY threat_type
-            ''')
+            ''', (f'-{hours} hours',))
             threat_dist = dict(cursor.fetchall())
             
             # Top source IPs
-            cursor.execute(f'''
+            cursor.execute('''
                 SELECT src_ip, COUNT(*) as count
                 FROM alerts
-                WHERE timestamp > datetime('now', '-{hours} hours')
+                WHERE timestamp > datetime('now', ?)
                 GROUP BY src_ip
                 ORDER BY count DESC
                 LIMIT 10
-            ''')
+            ''', (f'-{hours} hours',))
             top_ips = [{'ip': row[0], 'count': row[1]} for row in cursor.fetchall()]
             
             # Average confidence
-            cursor.execute(f'''
+            cursor.execute('''
                 SELECT AVG(confidence) FROM alerts
-                WHERE timestamp > datetime('now', '-{hours} hours')
-            ''')
+                WHERE timestamp > datetime('now', ?)
+            ''', (f'-{hours} hours',))
             avg_confidence = cursor.fetchone()[0] or 0
             
             conn.close()
