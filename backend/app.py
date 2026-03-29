@@ -20,6 +20,9 @@ from api.ai import ai_bp
 from api.capture import capture_bp
 from api.rules import rules_bp
 from api.threat_intel_display import threat_intel_bp
+from api.export import export_bp
+from api.auth_api import auth_bp
+from api.pcap_handler import pcap_bp
 
 # Setup logging
 logging.basicConfig(
@@ -71,6 +74,9 @@ def create_app(config_name="development"):
     app.register_blueprint(capture_bp)  # Has /api/capture prefix
     app.register_blueprint(rules_bp)  # Has /api/rules prefix
     app.register_blueprint(threat_intel_bp)  # Has /api/threat-intel prefix
+    app.register_blueprint(export_bp)  # Has /api/export prefix
+    app.register_blueprint(auth_bp)  # Has /api/auth prefix
+    app.register_blueprint(pcap_bp)  # Has /api/pcap prefix
     
     # Health check endpoint
     @app.route("/health")
