@@ -16,6 +16,7 @@ from capture.packet_capture import PacketCaptureEngine
 from detection.rule_engine import RuleEngine
 from ml.anomaly_detector import AnomalyDetector
 from api.routes import api_bp, init_api
+from api.ai import ai_bp
 
 # Setup logging
 logging.basicConfig(
@@ -63,6 +64,7 @@ def create_app(config_name="development"):
     
     # Register blueprints
     app.register_blueprint(api_bp, url_prefix="/api")
+    app.register_blueprint(ai_bp)
     
     # Health check endpoint
     @app.route("/health")

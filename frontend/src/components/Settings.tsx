@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Save, AlertCircle, CheckCircle, Plus, Trash2 } from 'lucide-react'
 import { rulesAPI, captureAPI } from '../services/api'
+import AISettings from './AISettings'
 
 interface Rule {
   id: string
@@ -172,6 +173,9 @@ export default function Settings() {
           {message.text}
         </div>
       )}
+
+      {/* AI Settings */}
+      <AISettings />
 
       {/* Capture Settings */}
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
