@@ -184,7 +184,7 @@ export default function DashboardV3() {
               className="flex items-center gap-4 p-4 rounded-lg"
               style={{ backgroundColor: 'rgba(157, 78, 221, 0.1)', borderLeft: '3px solid #9D4EDD' }}
             >
-              <PulseRing color="purple" intensity="medium" size={40} />
+              <PulseRing color="pink" intensity="medium" size={40} />
               <div>
                 <p className="text-sm text-gray-400">Threat Level</p>
                 <p className="text-lg font-bold text-neon-purple">Medium</p>

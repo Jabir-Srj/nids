@@ -130,10 +130,10 @@ export default function DashboardV2() {
             Threat Distribution
           </h3>
           <div className="space-y-4">
-            <ThreatBar label="Critical" value={15} color="#f97316" />
+            <ThreatBar label="Critical" value={15} color="#d97316" />
             <ThreatBar label="High" value={28} color="#d97706" />
-            <ThreatBar label="Medium" value={42} color="#fcd34d" />
-            <ThreatBar label="Low" value={15} color="#22c55e" />
+            <ThreatBar label="Medium" value={42} color="#d4a574" />
+            <ThreatBar label="Low" value={15} color="#8acc16" />
           </div>
         </div>
 
@@ -365,13 +365,17 @@ function KPICard({ title, value, change, icon, severity }: KPICardProps) {
   const getColors = () => {
     switch (severity) {
       case 'critical':
-        return { bg: 'rgba(249, 115, 22, 0.08)', border: 'rgb(249, 115, 22)', accent: '#f97316', text: '#f97316' }
+        // Warm rose/red for critical
+        return { bg: 'rgba(249, 115, 22, 0.08)', border: '#e5a7a1', accent: '#d97316', text: '#b85a54' }
       case 'warning':
-        return { bg: 'rgba(217, 119, 6, 0.08)', border: 'rgb(217, 119, 6)', accent: '#d97706', text: '#d97706' }
+        // Warm amber for warning
+        return { bg: 'rgba(217, 119, 6, 0.08)', border: '#e5d4b8', accent: '#d97706', text: '#b8860b' }
       case 'success':
-        return { bg: 'rgba(34, 197, 94, 0.08)', border: 'rgb(34, 197, 94)', accent: '#22c55e', text: '#22c55e' }
+        // Warm green for success
+        return { bg: 'rgba(132, 204, 22, 0.08)', border: '#c4d9a8', accent: '#8acc16', text: '#6b8e23' }
       default:
-        return { bg: 'rgba(59, 130, 246, 0.08)', border: 'rgb(59, 130, 246)', accent: '#3b82f6', text: '#3b82f6' }
+        // Warm slate/blue for info
+        return { bg: 'rgba(100, 116, 139, 0.08)', border: '#cbd5e1', accent: '#64748b', text: '#475569' }
     }
   }
 
@@ -461,8 +465,10 @@ interface HealthIndicatorProps {
 
 function HealthIndicator({ label, value }: HealthIndicatorProps) {
   const getColor = () => {
-    if (value > 80) return '#f97316'
+    if (value > 80) return '#d97316'
     if (value > 60) return '#d97706'
+    return '#8acc16'
+  }
     return '#22c55e'
   }
 
