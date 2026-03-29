@@ -1,6 +1,66 @@
-import { useState } from 'react'
+import { useState, Suspense, lazy } from 'react'
 import { Menu, X } from 'lucide-react'
 import './index.css'
+import React from 'react'
+
+// Lazy load components
+const DashboardV2 = lazy(() => import('./components/DashboardV2'))
+const AlertList = lazy(() => import('./components/AlertList'))
+const Analytics = lazy(() => import('./components/Analytics'))
+const Settings = lazy(() => import('./components/Settings'))
+const PacketInspector = lazy(() => import('./components/PacketInspector'))
+const GeoMap = lazy(() => import('./components/GeoMap'))
+const NetworkTopology = lazy(() => import('./components/NetworkTopology'))
+const AdvancedFilters = lazy(() => import('./components/AdvancedFilters'))
+
+// Error Boundary Component
+class ErrorBoundary extends React.Component<any, { hasError: boolean; error: any }> {
+  constructor(props: any) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true, error }
+  }
+
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error('Component Error:', error, errorInfo)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-8 text-center">
+          <p className="text-red-500 font-bold mb-4">⚠️ Component Error</p>
+          <p className="text-gray-400 mb-4">{this.state.error?.message}</p>
+          <button
+            onClick={() => this.setState({ hasError: false })}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded"
+          >
+            Retry
+          </button>
+        </div>
+      )
+    }
+
+    return this.props.children
+  }
+}
+
+// Loading fallback
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center h-96">
+      <div className="text-center">
+        <div className="inline-block">
+          <div className="w-12 h-12 rounded-full border-4 border-gray-700 border-t-blue-600 animate-spin"></div>
+        </div>
+        <p className="mt-4 text-gray-400">Loading component...</p>
+      </div>
+    </div>
+  )
+}
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard')
@@ -16,6 +76,29 @@ function App() {
     { id: 'analytics', label: 'Analytics', icon: '📈' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },
   ]
+
+  const renderContent = () => {
+    switch (currentPage) {
+      case 'dashboard':
+        return <DashboardV2 />
+      case 'alerts':
+        return <AlertList />
+      case 'packets':
+        return <PacketInspector />
+      case 'geomap':
+        return <GeoMap />
+      case 'network':
+        return <NetworkTopology />
+      case 'filters':
+        return <AdvancedFilters />
+      case 'analytics':
+        return <Analytics />
+      case 'settings':
+        return <Settings />
+      default:
+        return <DashboardV2 />
+    }
+  }
 
   return (
     <div className="flex h-screen bg-gray-900 text-white">
@@ -84,33 +167,9 @@ function App() {
 
         {/* Page Content */}
         <div className="flex-1 overflow-auto p-8">
-          {currentPage === 'dashboard' && (
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold">Welcome to NIDS v3.0</h2>
-              <p className="text-gray-400">Loading dashboard...</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {[
-                  { title: 'Total Alerts', value: '0', icon: '🚨' },
-                  { title: 'Critical', value: '0', icon: '🔴' },
-                  { title: 'Blocked', value: '0', icon: '🛡️' },
-                  { title: 'Uptime', value: '100%', icon: '✅' },
-                ].map((card, i) => (
-                  <div key={i} className="bg-gray-800 rounded-lg p-4 border border-gray-700">
-                    <p className="text-4xl mb-2">{card.icon}</p>
-                    <p className="text-gray-400 text-sm">{card.title}</p>
-                    <p className="text-2xl font-bold mt-2">{card.value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {currentPage !== 'dashboard' && (
-            <div className="text-center text-gray-400">
-              <p className="text-xl">Page: {currentPage}</p>
-              <p className="text-sm mt-2">Component loading...</p>
-            </div>
-          )}
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>{renderContent()}</Suspense>
+          </ErrorBoundary>
         </div>
       </div>
     </div>
