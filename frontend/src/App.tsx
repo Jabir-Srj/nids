@@ -14,6 +14,7 @@ const NetworkTopology = lazy(() => import('./components/NetworkTopology'))
 const AdvancedFilters = lazy(() => import('./components/AdvancedFilters'))
 const Rules = lazy(() => import('./components/Rules'))
 const ThreatIntel = lazy(() => import('./components/ThreatIntel'))
+const SystemHealth = lazy(() => import('./components/SystemHealth'))
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component<any, { hasError: boolean; error: any }> {
@@ -78,6 +79,7 @@ function App() {
     { id: 'network', label: 'Network', icon: '🔗' },
     { id: 'filters', label: 'Filters', icon: '🔍' },
     { id: 'analytics', label: 'Analytics', icon: '📈' },
+    { id: 'health', label: 'Health', icon: '💚' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },
   ]
 
@@ -101,6 +103,8 @@ function App() {
         return <AdvancedFilters />
       case 'analytics':
         return <Analytics />
+      case 'health':
+        return <SystemHealth />
       case 'settings':
         return <Settings />
       default:
