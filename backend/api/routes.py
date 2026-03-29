@@ -406,6 +406,124 @@ def health():
     }), 200
 
 
+# ============================================
+# DEMO DATA ENDPOINT (for testing without capture)
+# ============================================
+
+@api_bp.route('/demo/inject-alerts', methods=['POST'])
+def inject_demo_alerts():
+    """Inject sample alerts for testing/demo purposes"""
+    global _alerts_db
+    
+    demo_alerts = [
+        {
+            'id': 'alert-1',
+            'timestamp': (datetime.now() - timedelta(minutes=5)).isoformat(),
+            'source_ip': '203.0.113.45',
+            'dest_ip': '10.0.0.50',
+            'protocol': 'TCP',
+            'port': 80,
+            'threat_type': 'SQL Injection',
+            'severity': 'CRITICAL',
+            'confidence': 0.95,
+            'message': 'SQL injection pattern detected in HTTP request',
+        },
+        {
+            'id': 'alert-2',
+            'timestamp': (datetime.now() - timedelta(minutes=10)).isoformat(),
+            'source_ip': '192.168.1.105',
+            'dest_ip': '10.0.0.100',
+            'protocol': 'SSH',
+            'port': 22,
+            'threat_type': 'Brute Force',
+            'severity': 'HIGH',
+            'confidence': 0.87,
+            'message': 'Multiple failed SSH login attempts detected',
+        },
+        {
+            'id': 'alert-3',
+            'timestamp': (datetime.now() - timedelta(minutes=15)).isoformat(),
+            'source_ip': '198.51.100.78',
+            'dest_ip': '10.0.0.0/24',
+            'protocol': 'TCP',
+            'port': 0,
+            'threat_type': 'Port Scan',
+            'severity': 'HIGH',
+            'confidence': 0.92,
+            'message': 'Sequential port scanning detected across subnet',
+        },
+        {
+            'id': 'alert-4',
+            'timestamp': (datetime.now() - timedelta(minutes=20)).isoformat(),
+            'source_ip': '192.168.1.200',
+            'dest_ip': '10.0.0.75',
+            'protocol': 'HTTP',
+            'port': 80,
+            'threat_type': 'XSS Attack',
+            'severity': 'MEDIUM',
+            'confidence': 0.78,
+            'message': 'Cross-site scripting payload detected in request',
+        },
+        {
+            'id': 'alert-5',
+            'timestamp': (datetime.now() - timedelta(minutes=25)).isoformat(),
+            'source_ip': '203.0.113.0/24',
+            'dest_ip': '10.0.0.25',
+            'protocol': 'UDP',
+            'port': 53,
+            'threat_type': 'DDoS',
+            'severity': 'CRITICAL',
+            'confidence': 0.98,
+            'message': 'Massive traffic spike detected from multiple IPs',
+        },
+        {
+            'id': 'alert-6',
+            'timestamp': (datetime.now() - timedelta(minutes=30)).isoformat(),
+            'source_ip': '198.51.100.42',
+            'dest_ip': '10.0.0.200',
+            'protocol': 'TCP',
+            'port': 443,
+            'threat_type': 'SSL Strip',
+            'severity': 'MEDIUM',
+            'confidence': 0.81,
+            'message': 'Potential SSL stripping attack detected',
+        },
+        {
+            'id': 'alert-7',
+            'timestamp': (datetime.now() - timedelta(minutes=35)).isoformat(),
+            'source_ip': '192.168.1.150',
+            'dest_ip': '10.0.0.10',
+            'protocol': 'TCP',
+            'port': 3306,
+            'threat_type': 'Database Access',
+            'severity': 'HIGH',
+            'confidence': 0.85,
+            'message': 'Unauthorized database access attempt',
+        },
+        {
+            'id': 'alert-8',
+            'timestamp': (datetime.now() - timedelta(minutes=40)).isoformat(),
+            'source_ip': '203.0.113.99',
+            'dest_ip': '10.0.0.1',
+            'protocol': 'ICMP',
+            'port': 0,
+            'threat_type': 'Reconnaissance',
+            'severity': 'LOW',
+            'confidence': 0.65,
+            'message': 'Potential network reconnaissance detected',
+        },
+    ]
+    
+    _alerts_db.extend(demo_alerts)
+    
+    return jsonify({
+        'status': 'success',
+        'message': f'Injected {len(demo_alerts)} demo alerts',
+        'total_alerts': len(_alerts_db),
+        'alerts': demo_alerts
+    }), 201
+
+
 def init_api(capture_engine, rule_engine, anomaly_detector):
     """Initialize API with engine instances"""
     global _capture_engine, _rule_engine, _anomaly_detector

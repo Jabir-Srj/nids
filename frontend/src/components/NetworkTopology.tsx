@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useEffect, useState } from 'react'
 import { Network, AlertCircle, Zap } from 'lucide-react'
-import { mockNetworkTopology } from '../services/mockData'
 
 interface Node {
   id: string

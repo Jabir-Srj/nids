@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { AlertCircle, CheckCircle, Clock, Download } from 'lucide-react'
 import { alertsAPI } from '../services/api'
-import { mockAlerts } from '../services/mockData'
 
 interface Alert {
   id: string
@@ -26,8 +25,8 @@ export default function AlertList() {
 
         const formattedAlerts = data.map((alert: any) => ({
           id: alert.id || Math.random().toString(),
-          type: alert.type || 'Unknown Threat',
-          severity: alert.severity || 'low',
+          type: alert.threat_type || 'Unknown Threat',
+          severity: alert.severity?.toLowerCase() || 'low',
           timestamp: alert.timestamp || new Date().toISOString(),
           source: alert.source_ip || alert.source || 'Unknown',
           destination: alert.dest_ip || alert.destination || 'Unknown',
@@ -38,8 +37,6 @@ export default function AlertList() {
         setLoading(false)
       } catch (error) {
         console.error('Failed to fetch alerts:', error)
-        // Use mock data as fallback
-        setAlerts(mockAlerts)
         setLoading(false)
       }
     }
