@@ -5,6 +5,7 @@ import AlertList from './components/AlertList'
 import Analytics from './components/Analytics'
 import Settings from './components/Settings'
 import PacketInspector from './components/PacketInspector'
+import GeoMap from './components/GeoMap'
 import './index.css'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
     { id: 'alerts', label: 'Alerts', icon: '🚨' },
     { id: 'packets', label: 'Packets', icon: '📦' },
+    { id: 'geomap', label: 'GeoMap', icon: '🌍' },
     { id: 'analytics', label: 'Analytics', icon: '📈' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },
   ]
@@ -87,6 +89,7 @@ function App() {
           {currentPage === 'dashboard' && <Dashboard />}
           {currentPage === 'alerts' && <AlertList />}
           {currentPage === 'packets' && <PacketInspector />}
+          {currentPage === 'geomap' && <GeoMap />}
           {currentPage === 'analytics' && <Analytics />}
           {currentPage === 'settings' && <Settings />}
         </div>
