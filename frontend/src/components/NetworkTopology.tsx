@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { GitNetwork, AlertCircle, Zap } from 'lucide-react'
+import { Network, AlertCircle, Zap } from 'lucide-react'
 
 interface Node {
   id: string
@@ -142,7 +142,7 @@ export default function NetworkTopology() {
       {/* Network Topology Visualization */}
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
         <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-          <GitNetwork className="w-5 h-5" />
+          <Network className="w-5 h-5" />
           Network Attack Topology
         </h2>
 
