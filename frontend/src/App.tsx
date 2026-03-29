@@ -125,10 +125,10 @@ function App() {
   }, [])
 
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard v3', icon: '📊' },
-    { id: 'alerts-v2', label: 'Alerts v2', icon: '🚨', hasCount: true },
+    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { id: 'alerts-v2', label: 'Alerts', icon: '🚨', hasCount: true },
     { id: 'timeline', label: 'Threat Timeline', icon: '📅' },
-    { id: 'network-v2', label: 'Network v2', icon: '🔗' },
+    { id: 'network-v2', label: 'Network', icon: '🔗' },
     { id: 'packets', label: 'Packets', icon: '📦' },
     { id: 'rules', label: 'Rules', icon: '📋' },
     { id: 'threat-intel', label: 'Threat Intel', icon: '🎯' },
