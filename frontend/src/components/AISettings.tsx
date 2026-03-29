@@ -12,16 +12,13 @@ interface ProvidersData {
   [key: string]: Provider
 }
 
-interface ConfigStatus {
-  [key: string]: boolean
-}
-
 export default function AISettings() {
   const [providers, setProviders] = useState<ProvidersData>({})
   const [activeProvider, setActiveProvider] = useState('ollama')
-  const [configStatus, setConfigStatus] = useState<ConfigStatus>({})
+  const [configStatus, setConfigStatus] = useState<{ [key: string]: boolean }>({})
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   // Form state
   const [formData, setFormData] = useState({
@@ -33,37 +30,50 @@ export default function AISettings() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
+        console.log('Fetching AI providers...')
+
         // Fetch available providers
         const providersRes = await fetch('http://localhost:5000/api/ai/providers')
-        if (providersRes.ok) {
-          const data = await providersRes.json()
-          console.log('Providers:', data)
-          setProviders(data.providers || {})
-          setActiveProvider(data.active_provider || 'ollama')
-        } else {
-          console.error('Providers fetch failed:', providersRes.status)
+        console.log('Providers response status:', providersRes.status)
+
+        if (!providersRes.ok) {
+          throw new Error(`Provider fetch failed: ${providersRes.status}`)
         }
+
+        const data = await providersRes.json()
+        console.log('Providers data:', data)
+
+        if (!data.providers) {
+          throw new Error('No providers in response')
+        }
+
+        setProviders(data.providers)
+        setActiveProvider(data.active_provider || 'ollama')
 
         // Fetch current config
         const configRes = await fetch('http://localhost:5000/api/ai/config')
+        console.log('Config response status:', configRes.status)
+
         if (configRes.ok) {
           const config = await configRes.json()
-          console.log('Config:', config)
+          console.log('Config data:', config)
           setActiveProvider(config.active_provider || 'ollama')
-          const status: ConfigStatus = {}
+
+          const status: { [key: string]: boolean } = {}
           if (config.providers) {
             Object.entries(config.providers).forEach(([key, val]: [string, any]) => {
               status[key] = val.configured
             })
           }
           setConfigStatus(status)
-        } else {
-          console.error('Config fetch failed:', configRes.status)
         }
 
         setLoading(false)
+        setError(null)
       } catch (error) {
         console.error('Failed to fetch AI config:', error)
+        setError(String(error))
         setLoading(false)
       }
     }
@@ -108,15 +118,25 @@ export default function AISettings() {
       if (response.ok) {
         const data = await response.json()
         if (data.available) {
-          setMessage({ type: 'success', text: `${activeProvider} is connected and available!` })
+          setMessage({ type: 'success', text: `${activeProvider} is connected!` })
         } else {
-          setMessage({ type: 'error', text: `${activeProvider} is not configured` })
+          setMessage({ type: 'error', text: `${activeProvider} not configured` })
         }
         setTimeout(() => setMessage(null), 3000)
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to check health' })
+      setMessage({ type: 'error', text: `Connection check failed: ${error}` })
     }
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-900/20 border border-red-700 rounded-lg p-6 text-red-300">
+        <AlertCircle className="w-6 h-6 mb-2" />
+        <p className="font-semibold">Error loading AI settings</p>
+        <p className="text-sm mt-2">{error}</p>
+      </div>
+    )
   }
 
   if (loading) {
@@ -124,6 +144,19 @@ export default function AISettings() {
       <div className="bg-gray-800 rounded-lg p-8 text-center border border-gray-700">
         <Loader className="w-8 h-8 animate-spin mx-auto text-blue-400 mb-2" />
         <p className="text-gray-400">Loading AI settings...</p>
+      </div>
+    )
+  }
+
+  const providerEntries = Object.entries(providers)
+  console.log('Provider entries:', providerEntries)
+
+  if (providerEntries.length === 0) {
+    return (
+      <div className="bg-yellow-900/20 border border-yellow-700 rounded-lg p-6 text-yellow-300">
+        <AlertCircle className="w-6 h-6 mb-2" />
+        <p className="font-semibold">No AI providers available</p>
+        <p className="text-sm mt-2">Backend may not be running or AI service failed to initialize</p>
       </div>
     )
   }
@@ -151,7 +184,7 @@ export default function AISettings() {
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
         <h2 className="text-lg font-bold mb-4">🤖 AI Provider Selection</h2>
         <div className="space-y-3">
-          {Object.entries(providers).map(([key, provider]: [string, any]) => (
+          {providerEntries.map(([key, provider]: [string, any]) => (
             <div key={key} className="flex items-center justify-between p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
               <div className="flex items-center gap-3">
                 <input
@@ -184,7 +217,7 @@ export default function AISettings() {
 
       {/* Configuration Form */}
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-        <h2 className="text-lg font-bold mb-4">⚙️ Configure Selected Provider</h2>
+        <h2 className="text-lg font-bold mb-4">⚙️ Configure: {providers[activeProvider]?.name}</h2>
 
         {activeProvider === 'ollama' ? (
           <div>
@@ -197,7 +230,7 @@ export default function AISettings() {
               className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 mb-4"
             />
             <p className="text-xs text-gray-400 mb-4">
-              Make sure Ollama is running locally. Download from{' '}
+              Download Ollama from{' '}
               <a href="https://ollama.ai" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                 ollama.ai
               </a>
@@ -213,40 +246,6 @@ export default function AISettings() {
               placeholder="Enter your API key"
               className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 mb-4"
             />
-            <p className="text-xs text-gray-400 mb-4">
-              {activeProvider === 'openai' && (
-                <>
-                  Get your API key from{' '}
-                  <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                    platform.openai.com
-                  </a>
-                </>
-              )}
-              {activeProvider === 'claude' && (
-                <>
-                  Get your API key from{' '}
-                  <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                    console.anthropic.com
-                  </a>
-                </>
-              )}
-              {activeProvider === 'gemini' && (
-                <>
-                  Get your API key from{' '}
-                  <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                    makersuite.google.com
-                  </a>
-                </>
-              )}
-              {activeProvider === 'huggingface' && (
-                <>
-                  Get your API key from{' '}
-                  <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                    huggingface.co/settings/tokens
-                  </a>
-                </>
-              )}
-            </p>
           </div>
         )}
 
@@ -266,45 +265,6 @@ export default function AISettings() {
             Test Connection
           </button>
         </div>
-      </div>
-
-      {/* Provider Information */}
-      <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg p-6 border border-blue-700">
-        <h2 className="text-lg font-bold mb-4">ℹ️ AI Provider Information</h2>
-        <div className="space-y-3">
-          <div>
-            <p className="text-gray-400 font-semibold">OpenAI GPT-4</p>
-            <p className="text-sm text-gray-300">Most capable model, ~$0.03-0.06 per request</p>
-          </div>
-          <div>
-            <p className="text-gray-400 font-semibold">Anthropic Claude</p>
-            <p className="text-sm text-gray-300">Great reasoning, better for analysis, similar pricing</p>
-          </div>
-          <div>
-            <p className="text-gray-400 font-semibold">Google Gemini</p>
-            <p className="text-sm text-gray-300">Competitive pricing, good for general tasks</p>
-          </div>
-          <div>
-            <p className="text-gray-400 font-semibold">Ollama (Local)</p>
-            <p className="text-sm text-gray-300">Free, runs on your machine, best for privacy</p>
-          </div>
-          <div>
-            <p className="text-gray-400 font-semibold">Hugging Face</p>
-            <p className="text-sm text-gray-300">Community models, rate-limited free tier</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Usage Instructions */}
-      <div className="bg-gradient-to-r from-green-900/20 to-emerald-900/20 rounded-lg p-6 border border-green-700">
-        <h2 className="text-lg font-bold mb-4">🚀 How to Use</h2>
-        <ol className="list-decimal list-inside space-y-2 text-sm text-gray-300">
-          <li>Select an AI provider from the list above</li>
-          <li>Enter the required configuration (API key or local URL)</li>
-          <li>Click "Save Configuration" to apply</li>
-          <li>Click "Test Connection" to verify it works</li>
-          <li>Once configured, AI threat analysis will be available in the Alerts page</li>
-        </ol>
       </div>
     </div>
   )
