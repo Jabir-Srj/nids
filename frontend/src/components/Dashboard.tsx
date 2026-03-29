@@ -68,6 +68,13 @@ export default function Dashboard() {
 
   const [threatTypes, setThreatTypes] = useState<any[]>([])
   const [protocolData, setProtocolData] = useState<any[]>([])
+  const [systemHealth, setSystemHealth] = useState<any[]>([
+    { category: 'Detection', value: 92 },
+    { category: 'Response', value: 88 },
+    { category: 'Accuracy', value: 95 },
+    { category: 'Coverage', value: 87 },
+    { category: 'Performance', value: 91 },
+  ])
   const [loading, setLoading] = useState(true)
 
   // Fetch real data from backend
@@ -91,6 +98,25 @@ export default function Dashboard() {
           }
         } catch (e) {
           console.log('Stats API not fully implemented yet, using defaults')
+        }
+
+        // Fetch system health
+        try {
+          const healthRes = await fetch('http://localhost:5000/api/system/health')
+          if (healthRes.ok) {
+            const healthData = await healthRes.json()
+            if (healthData.system) {
+              setSystemHealth([
+                { category: 'CPU', value: 100 - healthData.system.cpu.percent },
+                { category: 'Memory', value: 100 - healthData.system.memory.percent },
+                { category: 'Disk', value: 100 - healthData.system.disk.percent },
+                { category: 'Detection', value: 92 },
+                { category: 'Response', value: 88 },
+              ])
+            }
+          }
+        } catch (e) {
+          console.log('System health API not available')
         }
 
         // Fetch alerts
@@ -192,14 +218,6 @@ export default function Dashboard() {
     { name: 'Port Scan', value: 35 },
     { name: 'DDoS', value: 15 },
     { name: 'Malware', value: 12 },
-  ]
-
-  const systemHealth = [
-    { category: 'Detection', value: 92 },
-    { category: 'Response', value: 88 },
-    { category: 'Accuracy', value: 95 },
-    { category: 'Coverage', value: 87 },
-    { category: 'Performance', value: 91 },
   ]
 
   return (
