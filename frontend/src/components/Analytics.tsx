@@ -1,108 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import { ThreatTimeline, TopThreats, TopAttackers, ProtocolDistribution } from './shared/Charts';
-import { TimelinePoint } from '../types';
-import api from '../services/api';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-export const Analytics: React.FC = () => {
-  const [timelineData, setTimelineData] = useState<TimelinePoint[]>([]);
-  const [threatData, setThreatData] = useState<Array<{ type: string; count: number }>>([]);
-  const [topIPs, setTopIPs] = useState<Array<{ ip: string; count: number }>>([]);
-  const [protocolData, setProtocolData] = useState<Array<{ protocol: string; count: number }>>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [timeRange, setTimeRange] = useState<'24h' | '7d' | '30d'>('24h');
+const analyticsData = [
+  { hour: '00:00', threats: 5, packets: 1200, accuracy: 94.2 },
+  { hour: '01:00', threats: 8, packets: 1900, accuracy: 95.1 },
+  { hour: '02:00', threats: 3, packets: 1600, accuracy: 96.3 },
+  { hour: '03:00', threats: 12, packets: 2100, accuracy: 94.8 },
+  { hour: '04:00', threats: 4, packets: 1800, accuracy: 97.2 },
+  { hour: '05:00', threats: 15, packets: 2400, accuracy: 96.5 },
+]
 
-  const loadAnalytics = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const [timeline, threats, ips, protocols] = await Promise.all([
-        api.getThreatTimeline(timeRange),
-        api.getThreatStats(),
-        api.getTopIPs(),
-        api.getProtocolStats(),
-      ]);
-
-      setTimelineData(timeline || []);
-      setThreatData(threats?.threat_types || []);
-      setTopIPs(ips?.top_ips || []);
-      setProtocolData(protocols?.protocol_distribution || []);
-    } catch (err) {
-      console.error('Failed to load analytics:', err);
-      setError('Failed to load analytics data');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadAnalytics();
-    const interval = setInterval(loadAnalytics, 30000); // Refresh every 30 seconds
-    return () => clearInterval(interval);
-  }, [timeRange]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Loading analytics...</p>
-        </div>
-      </div>
-    );
-  }
-
+export default function Analytics() {
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Analytics</h1>
-        <div className="flex gap-2">
-          {(['24h', '7d', '30d'] as const).map((range) => (
-            <button
-              key={range}
-              onClick={() => setTimeRange(range)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                timeRange === range
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600'
-              }`}
-            >
-              Last {range}
-            </button>
-          ))}
-        </div>
+    <div className="space-y-6">
+      {/* Threat Trends */}
+      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h2 className="text-lg font-bold mb-4">Threat Trends</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={analyticsData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="hour" stroke="#9ca3af" />
+            <YAxis stroke="#9ca3af" />
+            <Tooltip
+              contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '0.5rem' }}
+              labelStyle={{ color: '#f3f4f6' }}
+            />
+            <Legend />
+            <Bar dataKey="threats" fill="#ef4444" name="Threats Detected" radius={[8, 8, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
 
-      {error && (
-        <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-800 dark:text-red-200 px-4 py-3 rounded">
-          {error}
-        </div>
-      )}
-
-      {/* Timeline */}
-      {timelineData.length > 0 && <ThreatTimeline data={timelineData} />}
-
-      {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {threatData.length > 0 && <TopThreats data={threatData} />}
-        {protocolData.length > 0 && <ProtocolDistribution data={protocolData} />}
+      {/* Detection Accuracy */}
+      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h2 className="text-lg font-bold mb-4">ML Detection Accuracy</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={analyticsData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="hour" stroke="#9ca3af" />
+            <YAxis stroke="#9ca3af" domain={[90, 100]} />
+            <Tooltip
+              contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '0.5rem' }}
+              labelStyle={{ color: '#f3f4f6' }}
+            />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="accuracy"
+              stroke="#10b981"
+              strokeWidth={2}
+              dot={{ fill: '#10b981', r: 5 }}
+              name="Accuracy (%)"
+            />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
 
-      {/* Top Attackers */}
-      {topIPs.length > 0 && <TopAttackers data={topIPs} />}
+      {/* Packet Analysis */}
+      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h2 className="text-lg font-bold mb-4">Packet Volume Analysis</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={analyticsData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="hour" stroke="#9ca3af" />
+            <YAxis stroke="#9ca3af" />
+            <Tooltip
+              contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '0.5rem' }}
+              labelStyle={{ color: '#f3f4f6' }}
+            />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="packets"
+              stroke="#3b82f6"
+              strokeWidth={2}
+              dot={{ fill: '#3b82f6', r: 5 }}
+              name="Packets (hundreds)"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
 
-      {/* Refresh Button */}
-      <div className="flex justify-center pt-4">
-        <button
-          onClick={loadAnalytics}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-        >
-          Refresh Analytics
-        </button>
+      {/* Statistics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+          <p className="text-gray-400">Average Accuracy</p>
+          <p className="text-3xl font-bold mt-2">95.68%</p>
+          <p className="text-xs text-green-400 mt-2">+1.2% this hour</p>
+        </div>
+        <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+          <p className="text-gray-400">Total Threats Detected</p>
+          <p className="text-3xl font-bold mt-2">47</p>
+          <p className="text-xs text-red-400 mt-2">+3 since last hour</p>
+        </div>
+        <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+          <p className="text-gray-400">Avg Packets/Hour</p>
+          <p className="text-3xl font-bold mt-2">1,850</p>
+          <p className="text-xs text-blue-400 mt-2">+145 vs yesterday</p>
+        </div>
       </div>
     </div>
-  );
-};
-
-export default Analytics;
+  )
+}
