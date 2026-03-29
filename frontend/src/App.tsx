@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react'
 import Dashboard from './components/Dashboard'
 import AlertList from './components/AlertList'
 import Analytics from './components/Analytics'
+import Settings from './components/Settings'
 import './index.css'
 
 function App() {
@@ -64,7 +65,7 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
         {/* Top Bar */}
-        <div className="bg-gray-800 border-b border-gray-700 px-8 py-4 flex items-center justify-between">
+        <div className="bg-gray-800 border-b border-gray-700 px-8 py-4 flex items-center justify-between sticky top-0 z-10">
           <div>
             <h1 className="text-2xl font-bold">
               {menuItems.find((item) => item.id === currentPage)?.label}
@@ -84,12 +85,7 @@ function App() {
           {currentPage === 'dashboard' && <Dashboard />}
           {currentPage === 'alerts' && <AlertList />}
           {currentPage === 'analytics' && <Analytics />}
-          {currentPage === 'settings' && (
-            <div className="bg-gray-800 p-6 rounded-lg">
-              <h2 className="text-xl font-bold mb-4">Settings</h2>
-              <p className="text-gray-400">Settings coming soon...</p>
-            </div>
-          )}
+          {currentPage === 'settings' && <Settings />}
         </div>
       </div>
     </div>
