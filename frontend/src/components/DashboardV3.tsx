@@ -319,3 +319,35 @@ export default function DashboardV3() {
     </motion.div>
   );
 }
+
+// Custom Tooltip Component
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        style={{
+          backgroundColor: 'rgba(10, 14, 39, 0.95)',
+          border: '1px solid rgba(0, 217, 255, 0.3)',
+          borderRadius: '8px',
+          padding: '8px 12px',
+          boxShadow: '0 0 20px rgba(0, 217, 255, 0.2)',
+        }}
+      >
+        {label && <p style={{ color: '#00D9FF', fontSize: '12px', margin: '0 0 4px 0' }}>{label}</p>}
+        {payload.map((entry: any, index: number) => (
+          <p
+            key={index}
+            style={{
+              color: entry.color || '#00D9FF',
+              fontSize: '12px',
+              margin: '2px 0',
+            }}
+          >
+            {entry.name}: {typeof entry.value === 'number' ? entry.value.toFixed(0) : entry.value}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+}
