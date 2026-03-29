@@ -3,6 +3,13 @@ import { Activity, Cpu, Database, HardDrive, Zap, AlertCircle } from 'lucide-rea
 
 interface HealthData {
   status: string
+  uptime?: {
+    seconds: number
+    hours: number
+    days: number
+    boot_time: string
+    formatted: string
+  }
   system?: {
     cpu: {
       percent: number
@@ -42,6 +49,13 @@ interface HealthData {
 // Mock data for demo purposes
 const getMockHealthData = (): HealthData => ({
   status: 'healthy',
+  uptime: {
+    seconds: Math.floor(Math.random() * 86400 * 30),
+    hours: Math.random() * 720,
+    days: Math.random() * 30,
+    boot_time: new Date(Date.now() - Math.random() * 86400000 * 30).toISOString(),
+    formatted: `${Math.floor(Math.random() * 30)}d ${Math.floor(Math.random() * 24)}h ${Math.floor(Math.random() * 60)}m`,
+  },
   system: {
     cpu: {
       percent: Math.random() * 50 + 10,
@@ -158,6 +172,34 @@ export default function SystemHealth() {
           System Status: <span className="capitalize">{health.status}</span>
         </h2>
       </div>
+
+      {/* System Uptime */}
+      {health.uptime && (
+        <div className="bg-purple-900/20 border border-purple-700 rounded-lg p-6">
+          <h2 className="text-lg font-bold flex items-center gap-2 mb-4">
+            <Activity className="w-5 h-5" />
+            System Uptime
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-purple-800/30 rounded p-4">
+              <p className="text-gray-400 text-sm">Formatted</p>
+              <p className="text-2xl font-bold mt-2 text-purple-300">{health.uptime.formatted}</p>
+            </div>
+            <div className="bg-purple-800/30 rounded p-4">
+              <p className="text-gray-400 text-sm">Days</p>
+              <p className="text-2xl font-bold mt-2">{health.uptime.days}</p>
+            </div>
+            <div className="bg-purple-800/30 rounded p-4">
+              <p className="text-gray-400 text-sm">Hours</p>
+              <p className="text-2xl font-bold mt-2">{health.uptime.hours}</p>
+            </div>
+            <div className="bg-purple-800/30 rounded p-4">
+              <p className="text-gray-400 text-sm">Boot Time</p>
+              <p className="text-sm font-bold mt-2 truncate">{new Date(health.uptime.boot_time).toLocaleString()}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* CPU Status */}
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">

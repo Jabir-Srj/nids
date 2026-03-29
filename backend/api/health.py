@@ -55,10 +55,22 @@ def system_health():
             'num_threads': process.num_threads(),
         }
         
+        # System uptime
+        boot_time = datetime.fromtimestamp(psutil.boot_time())
+        uptime_seconds = int((datetime.now() - boot_time).total_seconds())
+        uptime_hours = uptime_seconds / 3600
+        uptime_days = uptime_hours / 24
+        
         health_status = {
             'status': 'healthy' if cpu_percent < 80 and memory.percent < 80 else 'degraded',
             'timestamp': datetime.utcnow().isoformat(),
-            'uptime_seconds': int(process.create_time()),
+            'uptime': {
+                'seconds': uptime_seconds,
+                'hours': round(uptime_hours, 2),
+                'days': round(uptime_days, 2),
+                'boot_time': boot_time.isoformat(),
+                'formatted': f"{int(uptime_days)}d {int(uptime_hours % 24)}h {int((uptime_seconds % 3600) / 60)}m",
+            },
             
             'system': {
                 'cpu': {
