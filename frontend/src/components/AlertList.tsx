@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AlertCircle, CheckCircle, Clock, Download } from 'lucide-react'
 import { alertsAPI } from '../services/api'
+import { mockAlerts } from '../services/mockData'
 
 interface Alert {
   id: string
@@ -37,6 +38,8 @@ export default function AlertList() {
         setLoading(false)
       } catch (error) {
         console.error('Failed to fetch alerts:', error)
+        // Use mock data as fallback
+        setAlerts(mockAlerts)
         setLoading(false)
       }
     }
