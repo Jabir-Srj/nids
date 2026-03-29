@@ -12,6 +12,8 @@ const PacketInspector = lazy(() => import('./components/PacketInspector'))
 const GeoMap = lazy(() => import('./components/GeoMap'))
 const NetworkTopology = lazy(() => import('./components/NetworkTopology'))
 const AdvancedFilters = lazy(() => import('./components/AdvancedFilters'))
+const Rules = lazy(() => import('./components/Rules'))
+const ThreatIntel = lazy(() => import('./components/ThreatIntel'))
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component<any, { hasError: boolean; error: any }> {
@@ -70,6 +72,8 @@ function App() {
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
     { id: 'alerts', label: 'Alerts', icon: '🚨' },
     { id: 'packets', label: 'Packets', icon: '📦' },
+    { id: 'rules', label: 'Rules', icon: '📋' },
+    { id: 'threat-intel', label: 'Threat Intel', icon: '🎯' },
     { id: 'geomap', label: 'GeoMap', icon: '🌍' },
     { id: 'network', label: 'Network', icon: '🔗' },
     { id: 'filters', label: 'Filters', icon: '🔍' },
@@ -85,6 +89,10 @@ function App() {
         return <AlertList />
       case 'packets':
         return <PacketInspector />
+      case 'rules':
+        return <Rules />
+      case 'threat-intel':
+        return <ThreatIntel />
       case 'geomap':
         return <GeoMap />
       case 'network':

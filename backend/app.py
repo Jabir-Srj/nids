@@ -17,6 +17,9 @@ from detection.rule_engine import RuleEngine
 from ml.anomaly_detector import AnomalyDetector
 from api.routes import api_bp, init_api
 from api.ai import ai_bp
+from api.capture import capture_bp
+from api.rules import rules_bp
+from api.threat_intel_display import threat_intel_bp
 
 # Setup logging
 logging.basicConfig(
@@ -65,6 +68,9 @@ def create_app(config_name="development"):
     # Register blueprints
     app.register_blueprint(api_bp, url_prefix="/api")
     app.register_blueprint(ai_bp)  # AI blueprint already has /api/ai prefix
+    app.register_blueprint(capture_bp)  # Has /api/capture prefix
+    app.register_blueprint(rules_bp)  # Has /api/rules prefix
+    app.register_blueprint(threat_intel_bp)  # Has /api/threat-intel prefix
     
     # Health check endpoint
     @app.route("/health")
