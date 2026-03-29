@@ -1,134 +1,57 @@
-import axios, { AxiosInstance } from 'axios';
-import { Alert, DashboardStats, AlertFilter, TimelinePoint } from '../types';
+import axios from 'axios'
 
-class APIService {
-  private client: AxiosInstance;
-  private baseURL: string;
+const API_BASE_URL = 'http://localhost:5000/api'
 
-  constructor(baseURL: string = 'http://localhost:5000/api') {
-    this.baseURL = baseURL;
-    this.client = axios.create({
-      baseURL,
-      timeout: 10000,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 
-    // Add response interceptor for error handling
-    this.client.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        console.error('API Error:', error);
-        return Promise.reject(error);
-      }
-    );
-  }
-
-  // Dashboard & Stats
-  async getDashboardStats(): Promise<DashboardStats> {
-    const response = await this.client.get('/stats/overview');
-    return response.data;
-  }
-
-  async getThreatStats() {
-    const response = await this.client.get('/stats/threats');
-    return response.data;
-  }
-
-  async getTopIPs() {
-    const response = await this.client.get('/stats/ips');
-    return response.data;
-  }
-
-  async getProtocolStats() {
-    const response = await this.client.get('/stats/protocols');
-    return response.data;
-  }
-
-  async getThreatTimeline(timeRange: string = '24h'): Promise<TimelinePoint[]> {
-    const response = await this.client.get(`/stats/timeline?range=${timeRange}`);
-    return response.data;
-  }
-
-  // Alerts CRUD
-  async getAlerts(page: number = 1, limit: number = 20): Promise<any> {
-    const response = await this.client.get('/alerts', {
-      params: { page, limit },
-    });
-    return response.data;
-  }
-
-  async getAlertById(id: number): Promise<Alert> {
-    const response = await this.client.get(`/alerts/${id}`);
-    return response.data;
-  }
-
-  async filterAlerts(filters: AlertFilter): Promise<any> {
-    const response = await this.client.post('/alerts/filter', filters);
-    return response.data;
-  }
-
-  async deleteAlert(id: number): Promise<void> {
-    await this.client.delete(`/alerts/${id}`);
-  }
-
-  async searchAlerts(query: string): Promise<Alert[]> {
-    const response = await this.client.get('/alerts/search', {
-      params: { q: query },
-    });
-    return response.data;
-  }
-
-  // Capture control
-  async startCapture(interface_name: string): Promise<any> {
-    const response = await this.client.post('/capture/start', {
-      interface: interface_name,
-    });
-    return response.data;
-  }
-
-  async stopCapture(): Promise<any> {
-    const response = await this.client.post('/capture/stop');
-    return response.data;
-  }
-
-  async getCaptureStatus(): Promise<any> {
-    const response = await this.client.get('/capture/status');
-    return response.data;
-  }
-
-  async uploadPCAP(file: File): Promise<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await this.client.post('/capture/upload-pcap', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response.data;
-  }
-
-  // Export
-  async exportAlerts(format: 'json' | 'csv' | 'pdf'): Promise<Blob> {
-    const response = await this.client.get(`/export/alerts?format=${format}`, {
-      responseType: 'blob',
-    });
-    return response.data;
-  }
-
-  async generateReport(): Promise<Blob> {
-    const response = await this.client.get('/export/report', {
-      responseType: 'blob',
-    });
-    return response.data;
-  }
-
-  // Health
-  async getHealth(): Promise<any> {
-    const response = await this.client.get('/health');
-    return response.data;
-  }
+export const alertsAPI = {
+  getAll: (limit = 50) => api.get(`/alerts?limit=${limit}`),
+  getById: (id: string) => api.get(`/alerts/${id}`),
+  create: (data: any) => api.post('/alerts', data),
+  update: (id: string, data: any) => api.put(`/alerts/${id}`, data),
+  delete: (id: string) => api.delete(`/alerts/${id}`),
+  export: (format: 'json' | 'csv') => api.get(`/alerts/export/${format}`),
 }
 
-export default new APIService();
+export const statsAPI = {
+  overview: () => api.get('/stats/overview'),
+  byTime: (hours = 24) => api.get(`/stats/by-time?hours=${hours}`),
+  bySeverity: () => api.get('/stats/by-severity'),
+  byThreatType: () => api.get('/stats/by-threat-type'),
+  performance: () => api.get('/stats/performance'),
+}
+
+export const rulesAPI = {
+  getAll: () => api.get('/rules'),
+  getById: (id: string) => api.get(`/rules/${id}`),
+  create: (data: any) => api.post('/rules', data),
+  update: (id: string, data: any) => api.put(`/rules/${id}`, data),
+  delete: (id: string) => api.delete(`/rules/${id}`),
+  toggle: (id: string, enabled: boolean) => api.put(`/rules/${id}/toggle`, { enabled }),
+}
+
+export const captureAPI = {
+  start: (interface_name?: string) => api.post('/capture/start', { interface_name }),
+  stop: () => api.post('/capture/stop'),
+  status: () => api.get('/capture/status'),
+  interfaces: () => api.get('/capture/interfaces'),
+  packets: (limit = 100) => api.get(`/capture/packets?limit=${limit}`),
+}
+
+export const mlAPI = {
+  predict: (features: any) => api.post('/ml/predict', features),
+  accuracy: () => api.get('/ml/accuracy'),
+  status: () => api.get('/ml/status'),
+}
+
+export const healthAPI = {
+  check: () => api.get('/health'),
+}
+
+export default api
