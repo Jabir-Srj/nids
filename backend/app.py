@@ -64,7 +64,7 @@ def create_app(config_name="development"):
     
     # Register blueprints
     app.register_blueprint(api_bp, url_prefix="/api")
-    app.register_blueprint(ai_bp)
+    app.register_blueprint(ai_bp)  # AI blueprint already has /api/ai prefix
     
     # Health check endpoint
     @app.route("/health")

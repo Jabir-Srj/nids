@@ -37,20 +37,28 @@ export default function AISettings() {
         const providersRes = await fetch('http://localhost:5000/api/ai/providers')
         if (providersRes.ok) {
           const data = await providersRes.json()
-          setProviders(data.providers)
-          setActiveProvider(data.active_provider)
+          console.log('Providers:', data)
+          setProviders(data.providers || {})
+          setActiveProvider(data.active_provider || 'ollama')
+        } else {
+          console.error('Providers fetch failed:', providersRes.status)
         }
 
         // Fetch current config
         const configRes = await fetch('http://localhost:5000/api/ai/config')
         if (configRes.ok) {
           const config = await configRes.json()
-          setActiveProvider(config.active_provider)
+          console.log('Config:', config)
+          setActiveProvider(config.active_provider || 'ollama')
           const status: ConfigStatus = {}
-          Object.entries(config.providers).forEach(([key, val]: [string, any]) => {
-            status[key] = val.configured
-          })
+          if (config.providers) {
+            Object.entries(config.providers).forEach(([key, val]: [string, any]) => {
+              status[key] = val.configured
+            })
+          }
           setConfigStatus(status)
+        } else {
+          console.error('Config fetch failed:', configRes.status)
         }
 
         setLoading(false)
