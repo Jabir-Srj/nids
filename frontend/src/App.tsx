@@ -35,11 +35,24 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean; error: any
     if (this.state.hasError) {
       return (
         <div className="p-8 text-center">
-          <p className="text-red-600 font-bold mb-4">⚠️ Component Error</p>
-          <p className="text-gray-600 mb-4">{this.state.error?.message}</p>
+          <p style={{ color: '#f97316' }} className="font-bold mb-4">
+            ⚠️ Component Error
+          </p>
+          <p style={{ color: '#6b6b6b' }} className="mb-4">
+            {this.state.error?.message}
+          </p>
           <button
             onClick={() => this.setState({ hasError: false })}
-            className="px-4 py-2 bg-gradient-to-r from-slate-700 to-slate-800 text-white rounded-lg hover:from-slate-600 hover:to-slate-700 transition-all duration-200"
+            className="px-4 py-2 text-white rounded-md font-semibold transition-all duration-200"
+            style={{
+              backgroundColor: '#d97706',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#c46e0f';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#d97706';
+            }}
           >
             Retry
           </button>
@@ -58,11 +71,24 @@ function LoadingSpinner() {
       <div className="text-center">
         <div className="inline-block">
           <div className="relative w-12 h-12">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-20 animate-pulse"></div>
-            <div className="absolute inset-1 rounded-full border-3 border-transparent border-t-cyan-500 border-r-blue-500 animate-spin"></div>
+            <div
+              className="absolute inset-0 rounded-full opacity-20 animate-pulse"
+              style={{
+                backgroundColor: '#d97706',
+              }}
+            ></div>
+            <div
+              className="absolute inset-1 rounded-full border-3 border-transparent border-t-[#d97706] border-r-[#f97316] animate-spin"
+              style={{ borderTopColor: '#d97706', borderRightColor: '#f97316' }}
+            ></div>
           </div>
         </div>
-        <p className="mt-4 text-slate-600 font-mono text-sm">Initializing...</p>
+        <p
+          className="mt-4 font-code text-sm"
+          style={{ color: '#6b6b6b' }}
+        >
+          Initializing...
+        </p>
       </div>
     </div>
   )
@@ -140,39 +166,62 @@ function App() {
   const currentMenuItem = menuItems.find((item) => item.id === currentPage)
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 text-slate-900 overflow-hidden">
+    <div className="flex h-screen bg-[#FAFAF8] text-[#1a1a1a] overflow-hidden">
       {/* Sidebar */}
       <div
         className={`${
           sidebarOpen ? 'w-64' : 'w-20'
-        } border-r border-slate-200 bg-white backdrop-blur-xl bg-opacity-95 transition-all duration-300 flex flex-col shadow-lg`}
+        } border-r transition-all duration-300 flex flex-col`}
+        style={{
+          backgroundColor: 'rgb(245, 243, 240)',
+          borderColor: 'rgb(229, 227, 224)',
+        }}
       >
         {/* Logo */}
-        <div className="h-16 px-4 flex items-center border-b border-slate-200">
+        <div
+          className="h-16 px-4 flex items-center border-b transition-colors duration-200"
+          style={{ borderColor: 'rgb(229, 227, 224)' }}
+        >
           <div className="flex items-center gap-3 w-full">
-            <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-xl shadow-lg">
+            <div
+              className="flex items-center justify-center w-10 h-10 text-white rounded-lg shadow-md"
+              style={{ backgroundColor: '#d97706' }}
+            >
               <Shield size={20} className="font-bold" />
             </div>
             {sidebarOpen && (
               <div className="min-w-0 flex-1">
-                <p className="font-black text-sm truncate bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">NIDS v3.0</p>
-                <p className="text-xs text-slate-500 truncate font-mono">Network Guard</p>
+                <p className="font-serif-display text-base font-bold" style={{ color: '#1a1a1a' }}>
+                  NIDS v3.0
+                </p>
+                <p
+                  className="text-xs truncate font-code"
+                  style={{ color: '#6b6b6b' }}
+                >
+                  Network Guard
+                </p>
               </div>
             )}
           </div>
         </div>
 
         {/* Menu Items */}
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
           {menuItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setCurrentPage(item.id)}
-              className={`w-full group relative flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${
-                currentPage === item.id
-                  ? 'bg-gradient-to-r from-cyan-100 to-blue-100 text-slate-900 font-semibold shadow-md'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              className={`w-full group relative flex items-center gap-3 px-3 py-2.5 rounded-md transition-all duration-200 ${
+                currentPage === item.id ? 'font-semibold shadow-sm' : ''
               }`}
+              style={{
+                backgroundColor:
+                  currentPage === item.id
+                    ? 'rgba(217, 119, 6, 0.1)'
+                    : 'transparent',
+                color:
+                  currentPage === item.id ? '#d97706' : '#6b6b6b',
+              }}
               title={item.label}
             >
               <span className="text-lg flex-shrink-0">{item.icon}</span>
@@ -182,22 +231,42 @@ function App() {
                 </div>
               )}
               {sidebarOpen && item.hasCount && alertCount > 0 && (
-                <span className="flex-shrink-0 inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-white bg-gradient-to-r from-red-600 to-red-700 rounded-full shadow-md animate-pulse">
+                <span
+                  className="flex-shrink-0 inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-white rounded-full shadow-sm animate-soft-pulse"
+                  style={{ backgroundColor: '#f97316' }}
+                >
                   {alertCount > 99 ? '99+' : alertCount}
                 </span>
               )}
               {!sidebarOpen && item.hasCount && alertCount > 0 && (
-                <div className="absolute top-1 right-1 w-2.5 h-2.5 bg-gradient-to-r from-red-600 to-red-700 rounded-full shadow-lg animate-pulse"></div>
+                <div
+                  className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full shadow-md animate-soft-pulse"
+                  style={{ backgroundColor: '#f97316' }}
+                ></div>
               )}
             </button>
           ))}
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="p-3 border-t border-slate-200">
+        <div
+          className="p-3 border-t transition-colors duration-200"
+          style={{ borderColor: 'rgb(229, 227, 224)' }}
+        >
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-full flex items-center justify-center p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all duration-200"
+            className="w-full flex items-center justify-center p-2 rounded-md transition-all duration-200"
+            style={{
+              color: '#6b6b6b',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.08)';
+              e.currentTarget.style.color = '#d97706';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = '#6b6b6b';
+            }}
             title={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
           >
             {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
@@ -208,28 +277,74 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
-        <div className="h-16 border-b border-slate-200 bg-white backdrop-blur-xl bg-opacity-95 px-8 flex items-center justify-between flex-shrink-0 shadow-sm">
+        <div
+          className="h-16 border-b px-8 flex items-center justify-between flex-shrink-0 transition-colors duration-200"
+          style={{
+            backgroundColor: 'rgb(245, 243, 240)',
+            borderColor: 'rgb(229, 227, 224)',
+          }}
+        >
           <div className="flex items-center gap-3">
             <span className="text-2xl">{currentMenuItem?.icon}</span>
             <div>
-              <h1 className="text-lg font-bold text-slate-900">{currentMenuItem?.label}</h1>
-              <p className="text-xs text-slate-500 font-mono">Real-time Network Intrusion Detection</p>
+              <h1
+                className="text-lg font-serif-display font-bold"
+                style={{ color: '#1a1a1a' }}
+              >
+                {currentMenuItem?.label}
+              </h1>
+              <p
+                className="text-xs font-code"
+                style={{ color: '#6b6b6b' }}
+              >
+                Real-time Network Intrusion Detection
+              </p>
             </div>
           </div>
 
           {/* Top Bar Actions */}
           <div className="flex items-center gap-3">
             {/* Status */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200">
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 animate-pulse shadow-lg"></div>
-              <span className="text-sm text-emerald-700 font-semibold font-mono">Online</span>
+            <div
+              className="flex items-center gap-2 px-3 py-1.5 rounded-md border"
+              style={{
+                backgroundColor: 'rgba(217, 119, 6, 0.08)',
+                borderColor: 'rgba(217, 119, 6, 0.2)',
+              }}
+            >
+              <div
+                className="w-2 h-2 rounded-full animate-soft-pulse"
+                style={{ backgroundColor: '#d97706' }}
+              ></div>
+              <span
+                className="text-sm font-semibold font-code"
+                style={{ color: '#d97706' }}
+              >
+                Online
+              </span>
             </div>
 
             {/* Notifications */}
-            <button className="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all duration-200 hover:shadow-md">
+            <button
+              className="p-2 rounded-md transition-all duration-200"
+              style={{
+                color: '#6b6b6b',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.08)';
+                e.currentTarget.style.color = '#d97706';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = '#6b6b6b';
+              }}
+            >
               <Bell size={18} />
               {alertCount > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 bg-gradient-to-r from-red-600 to-red-700 rounded-full shadow-lg animate-pulse"></span>
+                <div
+                  className="absolute top-5 right-14 w-2 h-2 rounded-full animate-soft-pulse"
+                  style={{ backgroundColor: '#f97316' }}
+                ></div>
               )}
             </button>
 
@@ -237,22 +352,72 @@ function App() {
             <div className="relative">
               <button
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all duration-200 hover:shadow-md"
+                className="p-2 rounded-md transition-all duration-200"
+                style={{
+                  color: '#6b6b6b',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.08)';
+                  e.currentTarget.style.color = '#d97706';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#6b6b6b';
+                }}
               >
                 <User size={18} />
               </button>
 
               {showUserMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden z-50 backdrop-blur-xl bg-opacity-95">
-                  <div className="p-3 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100">
-                    <p className="text-sm font-bold text-slate-900">Jabir</p>
-                    <p className="text-xs text-slate-500 font-mono">Admin</p>
+                <div
+                  className="absolute right-0 mt-2 w-48 rounded-lg border shadow-lg overflow-hidden z-50 animate-scale-in"
+                  style={{
+                    backgroundColor: 'rgb(255, 255, 255)',
+                    borderColor: 'rgb(229, 227, 224)',
+                  }}
+                >
+                  <div
+                    className="p-3 border-b"
+                    style={{
+                      backgroundColor: 'rgb(245, 243, 240)',
+                      borderColor: 'rgb(229, 227, 224)',
+                    }}
+                  >
+                    <p className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>
+                      Jabir
+                    </p>
+                    <p className="text-xs font-code" style={{ color: '#6b6b6b' }}>
+                      Admin
+                    </p>
                   </div>
-                  <button className="w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-2">
+                  <button
+                    className="w-full px-4 py-2 text-sm text-left transition-colors duration-200 flex items-center gap-2"
+                    style={{
+                      color: '#2d2d2d',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgb(245, 243, 240)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
+                  >
                     <SettingsIcon size={16} />
                     Profile Settings
                   </button>
-                  <button className="w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-2 border-t border-slate-200">
+                  <button
+                    className="w-full px-4 py-2 text-sm text-left transition-colors duration-200 flex items-center gap-2 border-t"
+                    style={{
+                      color: '#2d2d2d',
+                      borderColor: 'rgb(229, 227, 224)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgb(245, 243, 240)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
+                  >
                     <LogOut size={16} />
                     Logout
                   </button>
@@ -263,7 +428,10 @@ function App() {
         </div>
 
         {/* Page Content */}
-        <div className="flex-1 overflow-auto p-8 bg-gradient-to-br from-slate-50 via-white to-slate-50">
+        <div
+          className="flex-1 overflow-auto p-8"
+          style={{ backgroundColor: '#FAFAF8' }}
+        >
           <ErrorBoundary>
             <Suspense fallback={<LoadingSpinner />}>{renderContent()}</Suspense>
           </ErrorBoundary>

@@ -90,63 +90,63 @@ export default function DashboardV2() {
           value={stats.total_alerts}
           change="+12%"
           icon={<AlertTriangle className="w-5 h-5" />}
-          gradient="from-red-500/20 to-red-600/20"
-          borderColor="border-red-300"
-          textColor="text-red-700"
-          accentColor="bg-red-500"
+          severity="critical"
         />
         <KPICard
           title="Critical Threats"
           value={stats.critical_count}
           change="-8%"
           icon={<Shield className="w-5 h-5" />}
-          gradient="from-orange-500/20 to-amber-600/20"
-          borderColor="border-orange-300"
-          textColor="text-orange-700"
-          accentColor="bg-orange-500"
+          severity="warning"
         />
         <KPICard
           title="Threats Blocked"
           value={stats.threats_blocked}
           change="+24%"
           icon={<Lock className="w-5 h-5" />}
-          gradient="from-emerald-500/20 to-teal-600/20"
-          borderColor="border-emerald-300"
-          textColor="text-emerald-700"
-          accentColor="bg-emerald-500"
+          severity="success"
         />
         <KPICard
           title="System Uptime"
           value={`${stats.uptime_percent}%`}
           change="Stable"
           icon={<Activity className="w-5 h-5" />}
-          gradient="from-cyan-500/20 to-blue-600/20"
-          borderColor="border-cyan-300"
-          textColor="text-cyan-700"
-          accentColor="bg-cyan-500"
+          severity="info"
         />
       </div>
 
       {/* Main Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Threat Severity Distribution */}
-        <div className="bg-white backdrop-blur-xl bg-opacity-95 rounded-xl p-6 border border-slate-200 lg:col-span-1 shadow-lg hover:shadow-xl transition-all duration-300">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-900">
-            <TrendingUp className="w-5 h-5 text-blue-600" />
+        <div
+          className="rounded-lg p-6 border transition-all duration-300 hover:shadow-md"
+          style={{
+            backgroundColor: 'rgb(255, 255, 255)',
+            borderColor: 'rgb(229, 227, 224)',
+          }}
+        >
+          <h3 className="text-lg font-serif-display font-bold mb-4 flex items-center gap-2" style={{ color: '#1a1a1a' }}>
+            <TrendingUp className="w-5 h-5" style={{ color: '#d97706' }} />
             Threat Distribution
           </h3>
           <div className="space-y-4">
-            <ThreatBar label="Critical" value={15} color="from-red-500 to-red-600" />
-            <ThreatBar label="High" value={28} color="from-orange-500 to-amber-600" />
-            <ThreatBar label="Medium" value={42} color="from-yellow-500 to-amber-500" />
-            <ThreatBar label="Low" value={15} color="from-emerald-500 to-teal-600" />
+            <ThreatBar label="Critical" value={15} color="#f97316" />
+            <ThreatBar label="High" value={28} color="#d97706" />
+            <ThreatBar label="Medium" value={42} color="#fcd34d" />
+            <ThreatBar label="Low" value={15} color="#22c55e" />
           </div>
         </div>
 
         {/* System Health */}
-        <div className="bg-white backdrop-blur-xl bg-opacity-95 rounded-xl p-6 border border-slate-200 lg:col-span-1 shadow-lg hover:shadow-xl transition-all duration-300">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-900">
-            <Server className="w-5 h-5 text-cyan-600" />
+        <div
+          className="rounded-lg p-6 border transition-all duration-300 hover:shadow-md"
+          style={{
+            backgroundColor: 'rgb(255, 255, 255)',
+            borderColor: 'rgb(229, 227, 224)',
+          }}
+        >
+          <h3 className="text-lg font-serif-display font-bold mb-4 flex items-center gap-2" style={{ color: '#1a1a1a' }}>
+            <Server className="w-5 h-5" style={{ color: '#3b82f6' }} />
             System Health
           </h3>
           <div className="space-y-4">
@@ -157,9 +157,15 @@ export default function DashboardV2() {
         </div>
 
         {/* Quick Stats */}
-        <div className="bg-white backdrop-blur-xl bg-opacity-95 rounded-xl p-6 border border-slate-200 lg:col-span-1 shadow-lg hover:shadow-xl transition-all duration-300">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-900">
-            <Zap className="w-5 h-5 text-amber-600" />
+        <div
+          className="rounded-lg p-6 border transition-all duration-300 hover:shadow-md"
+          style={{
+            backgroundColor: 'rgb(255, 255, 255)',
+            borderColor: 'rgb(229, 227, 224)',
+          }}
+        >
+          <h3 className="text-lg font-serif-display font-bold mb-4 flex items-center gap-2" style={{ color: '#1a1a1a' }}>
+            <Zap className="w-5 h-5" style={{ color: '#f97316' }} />
             Performance
           </h3>
           <div className="space-y-3">
@@ -172,36 +178,60 @@ export default function DashboardV2() {
       </div>
 
       {/* Recent Alerts Table */}
-      <div className="bg-white backdrop-blur-xl bg-opacity-95 rounded-xl p-6 border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300">
-        <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-900">
-          <AlertTriangle className="w-5 h-5 text-red-600" />
+      <div
+        className="rounded-lg p-6 border transition-all duration-300 hover:shadow-md"
+        style={{
+          backgroundColor: 'rgb(255, 255, 255)',
+          borderColor: 'rgb(229, 227, 224)',
+        }}
+      >
+        <h3 className="text-lg font-serif-display font-bold mb-4 flex items-center gap-2" style={{ color: '#1a1a1a' }}>
+          <AlertTriangle className="w-5 h-5" style={{ color: '#f97316' }} />
           Recent Alerts
         </h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-200">
-                <th className="text-left py-3 px-4 font-semibold text-slate-700">Time</th>
-                <th className="text-left py-3 px-4 font-semibold text-slate-700">Threat Type</th>
-                <th className="text-left py-3 px-4 font-semibold text-slate-700">Source IP</th>
-                <th className="text-left py-3 px-4 font-semibold text-slate-700">Severity</th>
-                <th className="text-left py-3 px-4 font-semibold text-slate-700">Action</th>
+              <tr style={{ borderColor: 'rgb(229, 227, 224)' }} className="border-b">
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: '#6b6b6b' }}>Time</th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: '#6b6b6b' }}>Threat Type</th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: '#6b6b6b' }}>Source IP</th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: '#6b6b6b' }}>Severity</th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: '#6b6b6b' }}>Action</th>
               </tr>
             </thead>
             <tbody>
               {recentAlerts.length > 0 ? (
                 recentAlerts.map((alert, idx) => (
-                  <tr key={idx} className="border-b border-slate-200 hover:bg-slate-50 transition-colors duration-200">
-                    <td className="py-3 px-4 text-slate-600 font-mono text-xs">
+                  <tr
+                    key={idx}
+                    className="border-b transition-colors duration-200 hover:bg-[#f5f3f0]"
+                    style={{ borderColor: 'rgb(229, 227, 224)' }}
+                  >
+                    <td
+                      className="py-3 px-4 font-code text-xs"
+                      style={{ color: '#6b6b6b' }}
+                    >
                       {new Date(alert.timestamp).toLocaleTimeString()}
                     </td>
-                    <td className="py-3 px-4 text-slate-900 font-semibold">{alert.type || alert.threat_type || 'Unknown'}</td>
-                    <td className="py-3 px-4 text-cyan-600 font-mono text-xs">{alert.source || alert.source_ip || 'N/A'}</td>
+                    <td className="py-3 px-4 font-semibold" style={{ color: '#1a1a1a' }}>
+                      {alert.type || alert.threat_type || 'Unknown'}
+                    </td>
+                    <td className="py-3 px-4 font-code text-xs" style={{ color: '#d97706' }}>
+                      {alert.source || alert.source_ip || 'N/A'}
+                    </td>
                     <td className="py-3 px-4">
                       <SeverityBadge severity={alert.severity} />
                     </td>
                     <td className="py-3 px-4">
-                      <button className="text-xs px-3 py-1.5 bg-gradient-to-r from-slate-200 to-slate-300 hover:from-slate-300 hover:to-slate-400 text-slate-900 rounded-md font-semibold transition-all duration-200 shadow-sm">
+                      <button
+                        className="text-xs px-3 py-1.5 rounded-md font-semibold transition-all duration-200 hover:shadow-sm"
+                        style={{
+                          backgroundColor: 'rgb(245, 243, 240)',
+                          color: '#1a1a1a',
+                          border: '1px solid rgb(229, 227, 224)',
+                        }}
+                      >
                         Details
                       </button>
                     </td>
@@ -209,7 +239,7 @@ export default function DashboardV2() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-slate-500">
+                  <td colSpan={5} className="py-8 text-center" style={{ color: '#6b6b6b' }}>
                     No alerts yet
                   </td>
                 </tr>
@@ -222,9 +252,15 @@ export default function DashboardV2() {
       {/* Bottom Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Top Attack Origins */}
-        <div className="bg-white backdrop-blur-xl bg-opacity-95 rounded-xl p-6 border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-900">
-            <Globe className="w-5 h-5 text-orange-600" />
+        <div
+          className="rounded-lg p-6 border transition-all duration-300 hover:shadow-md"
+          style={{
+            backgroundColor: 'rgb(255, 255, 255)',
+            borderColor: 'rgb(229, 227, 224)',
+          }}
+        >
+          <h3 className="text-lg font-serif-display font-bold mb-4 flex items-center gap-2" style={{ color: '#1a1a1a' }}>
+            <Globe className="w-5 h-5" style={{ color: '#f97316' }} />
             Top Attack Origins
           </h3>
           <div className="space-y-2">
@@ -235,24 +271,46 @@ export default function DashboardV2() {
               { country: 'Brazil', count: 98, percent: 14 },
               { country: 'Others', count: 44, percent: 6 },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg hover:from-slate-100 hover:to-slate-150 transition-all duration-200">
-                <span className="text-sm font-semibold text-slate-700">{item.country}</span>
-                <div className="flex-1 mx-3 bg-slate-200 rounded-full h-2">
+              <div
+                key={idx}
+                className="flex items-center justify-between p-3 rounded-md transition-all duration-200"
+                style={{
+                  backgroundColor: 'rgb(245, 243, 240)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgb(237, 233, 230)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgb(245, 243, 240)';
+                }}
+              >
+                <span className="text-sm font-semibold" style={{ color: '#2d2d2d' }}>
+                  {item.country}
+                </span>
+                <div className="flex-1 mx-3 rounded-full h-2" style={{ backgroundColor: 'rgb(229, 227, 224)' }}>
                   <div
-                    className="bg-gradient-to-r from-red-500 to-orange-600 h-2 rounded-full shadow-md"
-                    style={{ width: `${item.percent}%` }}
+                    className="h-2 rounded-full shadow-sm"
+                    style={{ width: `${item.percent}%`, backgroundColor: '#f97316' }}
                   ></div>
                 </div>
-                <span className="text-sm font-bold text-right w-12 text-slate-900">{item.count}</span>
+                <span className="text-sm font-bold text-right w-12" style={{ color: '#1a1a1a' }}>
+                  {item.count}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Detection Methods */}
-        <div className="bg-white backdrop-blur-xl bg-opacity-95 rounded-xl p-6 border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-900">
-            <span className="text-blue-600">🔍</span> Detection Methods
+        <div
+          className="rounded-lg p-6 border transition-all duration-300 hover:shadow-md"
+          style={{
+            backgroundColor: 'rgb(255, 255, 255)',
+            borderColor: 'rgb(229, 227, 224)',
+          }}
+        >
+          <h3 className="text-lg font-serif-display font-bold mb-4 flex items-center gap-2" style={{ color: '#1a1a1a' }}>
+            <span>🔍</span> Detection Methods
           </h3>
           <div className="space-y-2">
             {[
@@ -261,15 +319,31 @@ export default function DashboardV2() {
               { method: 'Heuristics', count: 156, percent: 16 },
               { method: 'ML-Based', count: 28, percent: 3 },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg hover:from-slate-100 hover:to-slate-150 transition-all duration-200">
-                <span className="text-sm font-semibold text-slate-700">{item.method}</span>
-                <div className="flex-1 mx-3 bg-slate-200 rounded-full h-2">
+              <div
+                key={idx}
+                className="flex items-center justify-between p-3 rounded-md transition-all duration-200"
+                style={{
+                  backgroundColor: 'rgb(245, 243, 240)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgb(237, 233, 230)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgb(245, 243, 240)';
+                }}
+              >
+                <span className="text-sm font-semibold" style={{ color: '#2d2d2d' }}>
+                  {item.method}
+                </span>
+                <div className="flex-1 mx-3 rounded-full h-2" style={{ backgroundColor: 'rgb(229, 227, 224)' }}>
                   <div
-                    className="bg-gradient-to-r from-blue-500 to-cyan-600 h-2 rounded-full shadow-md"
-                    style={{ width: `${item.percent}%` }}
+                    className="h-2 rounded-full shadow-sm"
+                    style={{ width: `${item.percent}%`, backgroundColor: '#3b82f6' }}
                   ></div>
                 </div>
-                <span className="text-sm font-bold text-right w-12 text-slate-900">{item.count}</span>
+                <span className="text-sm font-bold text-right w-12" style={{ color: '#1a1a1a' }}>
+                  {item.count}
+                </span>
               </div>
             ))}
           </div>
@@ -284,26 +358,61 @@ interface KPICardProps {
   value: number | string
   change: string
   icon: React.ReactNode
-  gradient: string
-  borderColor: string
-  textColor: string
-  accentColor: string
+  severity: 'critical' | 'warning' | 'success' | 'info'
 }
 
-function KPICard({ title, value, change, icon, gradient, borderColor, textColor, accentColor }: KPICardProps) {
+function KPICard({ title, value, change, icon, severity }: KPICardProps) {
+  const getColors = () => {
+    switch (severity) {
+      case 'critical':
+        return { bg: 'rgba(249, 115, 22, 0.08)', border: 'rgb(249, 115, 22)', accent: '#f97316', text: '#f97316' }
+      case 'warning':
+        return { bg: 'rgba(217, 119, 6, 0.08)', border: 'rgb(217, 119, 6)', accent: '#d97706', text: '#d97706' }
+      case 'success':
+        return { bg: 'rgba(34, 197, 94, 0.08)', border: 'rgb(34, 197, 94)', accent: '#22c55e', text: '#22c55e' }
+      default:
+        return { bg: 'rgba(59, 130, 246, 0.08)', border: 'rgb(59, 130, 246)', accent: '#3b82f6', text: '#3b82f6' }
+    }
+  }
+
+  const colors = getColors()
+
   return (
-    <div className={`relative rounded-xl p-6 border ${borderColor} backdrop-blur-xl bg-gradient-to-br ${gradient} bg-opacity-95 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group`}>
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-300 bg-gradient-to-br from-white to-transparent pointer-events-none"></div>
-      <div className="relative z-10">
-        <div className="flex items-center justify-between mb-3">
-          <p className={`text-sm font-bold ${textColor}`}>{title}</p>
-          <div className={`text-xl ${textColor} opacity-80`}>{icon}</div>
+    <div
+      className="rounded-lg p-6 border transition-all duration-300 hover:shadow-md animate-scale-in"
+      style={{
+        backgroundColor: colors.bg,
+        borderColor: colors.border,
+      }}
+    >
+      <div className="flex items-center justify-between mb-3">
+        <p
+          className="text-sm font-semibold"
+          style={{ color: colors.text }}
+        >
+          {title}
+        </p>
+        <div style={{ color: colors.accent }}>
+          {icon}
         </div>
-        <p className={`text-4xl font-black ${textColor} mb-2`}>{value}</p>
-        <div className="flex items-center gap-1">
-          <div className={`w-2 h-2 rounded-full ${accentColor}`}></div>
-          <p className="text-xs text-slate-600 font-mono">{change} from last week</p>
-        </div>
+      </div>
+      <p
+        className="text-3xl font-serif-display font-bold mb-2"
+        style={{ color: '#1a1a1a' }}
+      >
+        {value}
+      </p>
+      <div className="flex items-center gap-1">
+        <div
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: colors.accent }}
+        ></div>
+        <p
+          className="text-xs font-code"
+          style={{ color: '#6b6b6b' }}
+        >
+          {change} from last week
+        </p>
       </div>
     </div>
   )
@@ -319,11 +428,27 @@ function ThreatBar({ label, value, color }: ThreatBarProps) {
   return (
     <div className="space-y-1.5">
       <div className="flex justify-between items-center">
-        <span className="text-sm font-semibold text-slate-700">{label}</span>
-        <span className="text-sm font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">{value}%</span>
+        <span className="text-sm font-semibold" style={{ color: '#2d2d2d' }}>
+          {label}
+        </span>
+        <span
+          className="text-sm font-bold px-2 py-0.5 rounded"
+          style={{
+            backgroundColor: 'rgb(245, 243, 240)',
+            color: '#1a1a1a',
+          }}
+        >
+          {value}%
+        </span>
       </div>
-      <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner">
-        <div className={`bg-gradient-to-r ${color} h-3 rounded-full shadow-lg transition-all duration-500`} style={{ width: `${value}%` }}></div>
+      <div
+        className="w-full rounded-full h-3 overflow-hidden shadow-sm"
+        style={{ backgroundColor: 'rgb(229, 227, 224)' }}
+      >
+        <div
+          className="h-3 rounded-full shadow-md transition-all duration-500"
+          style={{ width: `${value}%`, backgroundColor: color }}
+        ></div>
       </div>
     </div>
   )
@@ -336,27 +461,30 @@ interface HealthIndicatorProps {
 
 function HealthIndicator({ label, value }: HealthIndicatorProps) {
   const getColor = () => {
-    if (value > 80) return 'text-red-600'
-    if (value > 60) return 'text-amber-600'
-    return 'text-emerald-600'
+    if (value > 80) return '#f97316'
+    if (value > 60) return '#d97706'
+    return '#22c55e'
   }
 
-  const getBgGradient = () => {
-    if (value > 80) return 'from-red-500 to-red-600'
-    if (value > 60) return 'from-amber-500 to-orange-600'
-    return 'from-emerald-500 to-teal-600'
-  }
+  const color = getColor()
 
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-slate-700">{label}</span>
-        <span className={`text-sm font-bold ${getColor()}`}>{Math.round(value)}%</span>
+        <span className="text-sm font-semibold" style={{ color: '#2d2d2d' }}>
+          {label}
+        </span>
+        <span className="text-sm font-bold" style={{ color }}>
+          {Math.round(value)}%
+        </span>
       </div>
-      <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner">
+      <div
+        className="w-full rounded-full h-3 overflow-hidden shadow-sm"
+        style={{ backgroundColor: 'rgb(229, 227, 224)' }}
+      >
         <div
-          className={`bg-gradient-to-r ${getBgGradient()} h-3 rounded-full shadow-lg transition-all duration-500`}
-          style={{ width: `${value}%` }}
+          className="h-3 rounded-full shadow-md transition-all duration-500"
+          style={{ width: `${value}%`, backgroundColor: color }}
         ></div>
       </div>
     </div>
@@ -371,11 +499,24 @@ interface StatRowProps {
 
 function StatRow({ label, value, icon }: StatRowProps) {
   return (
-    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg hover:from-slate-100 hover:to-slate-150 transition-all duration-200">
-      <span className="text-sm font-semibold text-slate-700">
+    <div
+      className="flex items-center justify-between p-3 rounded-md transition-all duration-200"
+      style={{
+        backgroundColor: 'rgb(245, 243, 240)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgb(237, 233, 230)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgb(245, 243, 240)';
+      }}
+    >
+      <span className="text-sm font-semibold" style={{ color: '#2d2d2d' }}>
         {icon} {label}
       </span>
-      <span className="font-bold text-slate-900">{value}</span>
+      <span className="font-bold" style={{ color: '#1a1a1a' }}>
+        {value}
+      </span>
     </div>
   )
 }
@@ -388,18 +529,27 @@ function SeverityBadge({ severity }: SeverityBadgeProps) {
   const getColors = () => {
     switch (severity?.toLowerCase()) {
       case 'critical':
-        return 'bg-red-100 text-red-800 border border-red-300 font-bold'
+        return { bg: 'rgba(249, 115, 22, 0.1)', text: '#f97316', border: '#f97316' }
       case 'high':
-        return 'bg-orange-100 text-orange-800 border border-orange-300 font-bold'
+        return { bg: 'rgba(217, 119, 6, 0.1)', text: '#d97706', border: '#d97706' }
       case 'medium':
-        return 'bg-amber-100 text-amber-800 border border-amber-300 font-semibold'
+        return { bg: 'rgba(252, 211, 77, 0.1)', text: '#fcd34d', border: '#fcd34d' }
       default:
-        return 'bg-emerald-100 text-emerald-800 border border-emerald-300 font-semibold'
+        return { bg: 'rgba(34, 197, 94, 0.1)', text: '#22c55e', border: '#22c55e' }
     }
   }
 
+  const colors = getColors()
+
   return (
-    <span className={`px-2.5 py-1 rounded-md text-xs ${getColors()}`}>
+    <span
+      className="px-2.5 py-1 rounded-md text-xs font-bold border"
+      style={{
+        backgroundColor: colors.bg,
+        color: colors.text,
+        borderColor: colors.border,
+      }}
+    >
       {severity?.toUpperCase() || 'UNKNOWN'}
     </span>
   )

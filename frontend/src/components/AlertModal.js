@@ -1,0 +1,40 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import React from 'react';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Box, Grid, Card, CardContent, CardHeader, Chip, List, ListItem, ListItemText, Typography, Alert, } from '@mui/material';
+import { ContentCopy as ContentCopyIcon, Check as CheckIcon, } from '@mui/icons-material';
+const AlertModal = ({ open, alert, onClose, onUpdate }) => {
+    const [copied, setCopied] = React.useState(false);
+    const handleCopy = (text) => {
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+    const getSeverityColor = (severity) => {
+        switch (severity) {
+            case 'critical':
+                return 'error';
+            case 'high':
+                return 'warning';
+            case 'medium':
+                return 'info';
+            case 'low':
+                return 'success';
+            default:
+                return 'default';
+        }
+    };
+    if (!alert)
+        return null;
+    return (_jsxs(Dialog, { open: open, onClose: onClose, maxWidth: "md", fullWidth: true, children: [_jsx(DialogTitle, { children: _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' }, children: [_jsx(Typography, { variant: "h6", children: alert.alert_type }), _jsx(Chip, { label: alert.severity, color: getSeverityColor(alert.severity), variant: "outlined" })] }) }), _jsx(DialogContent, { sx: { mt: 2 }, children: _jsxs(Grid, { container: true, spacing: 2, children: [_jsx(Grid, { item: true, xs: 12, children: _jsxs(Card, { children: [_jsx(CardHeader, { title: "Alert Summary" }), _jsx(CardContent, { children: _jsxs(Grid, { container: true, spacing: 2, children: [_jsx(Grid, { item: true, xs: 12, sm: 6, children: _jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Alert ID" }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }, children: [_jsx("code", { style: { fontSize: '0.85em', backgroundColor: '#f5f5f5', padding: '4px 8px', borderRadius: '4px' }, children: alert.id }), _jsx(Button, { size: "small", variant: "outlined", onClick: () => handleCopy(alert.id), endIcon: copied ? _jsx(CheckIcon, {}) : _jsx(ContentCopyIcon, {}), children: "Copy" })] })] }) }), _jsx(Grid, { item: true, xs: 12, sm: 6, children: _jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Timestamp" }), _jsx(Typography, { sx: { mt: 0.5 }, children: new Date(alert.timestamp).toLocaleString() })] }) }), _jsx(Grid, { item: true, xs: 12, sm: 6, children: _jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Threat Type" }), _jsx(Chip, { label: alert.threat_type, size: "small", sx: { mt: 0.5 } })] }) }), _jsx(Grid, { item: true, xs: 12, sm: 6, children: _jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Confidence" }), _jsxs(Typography, { sx: { mt: 0.5 }, children: [Math.round(alert.confidence * 100), "%"] })] }) })] }) })] }) }), _jsx(Grid, { item: true, xs: 12, children: _jsxs(Card, { children: [_jsx(CardHeader, { title: "Network Details" }), _jsx(CardContent, { children: _jsxs(Grid, { container: true, spacing: 2, children: [_jsx(Grid, { item: true, xs: 12, sm: 6, children: _jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Source IP : Port" }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }, children: [_jsxs("code", { style: { fontSize: '0.85em', backgroundColor: '#f5f5f5', padding: '4px 8px', borderRadius: '4px' }, children: [alert.src_ip, ":", alert.src_port] }), _jsx(Button, { size: "small", variant: "outlined", onClick: () => handleCopy(`${alert.src_ip}`), children: "Copy IP" })] })] }) }), _jsx(Grid, { item: true, xs: 12, sm: 6, children: _jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Destination IP : Port" }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }, children: [_jsxs("code", { style: { fontSize: '0.85em', backgroundColor: '#f5f5f5', padding: '4px 8px', borderRadius: '4px' }, children: [alert.dst_ip, ":", alert.dst_port] }), _jsx(Button, { size: "small", variant: "outlined", onClick: () => handleCopy(`${alert.dst_ip}`), children: "Copy IP" })] })] }) }), _jsx(Grid, { item: true, xs: 12, children: _jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Protocol" }), _jsx(Chip, { label: alert.protocol, size: "small", sx: { mt: 0.5 } })] }) })] }) })] }) }), _jsx(Grid, { item: true, xs: 12, children: _jsxs(Card, { children: [_jsx(CardHeader, { title: "Alert Message" }), _jsxs(CardContent, { children: [_jsx(Alert, { severity: getSeverityColor(alert.severity), sx: { mb: 2 }, children: alert.message }), alert.rule_matched && (_jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Rule Matched" }), _jsx(Box, { sx: { mt: 1, p: 1, backgroundColor: '#f5f5f5', borderRadius: '4px' }, children: _jsx("code", { children: alert.rule_matched }) })] }))] })] }) }), alert.payload && (_jsx(Grid, { item: true, xs: 12, children: _jsxs(Card, { children: [_jsx(CardHeader, { title: "Packet Payload (Preview)" }), _jsx(CardContent, { children: _jsxs(Box, { sx: {
+                                                backgroundColor: '#1e1e1e',
+                                                color: '#d4d4d4',
+                                                p: 2,
+                                                borderRadius: '4px',
+                                                overflow: 'auto',
+                                                maxHeight: 200,
+                                                fontFamily: 'monospace',
+                                                fontSize: '0.85em',
+                                            }, children: [alert.payload.substring(0, 500), alert.payload.length > 500 && '...'] }) })] }) })), alert.suggested_actions && alert.suggested_actions.length > 0 && (_jsx(Grid, { item: true, xs: 12, children: _jsxs(Card, { children: [_jsx(CardHeader, { title: "Suggested Actions" }), _jsx(CardContent, { children: _jsx(List, { dense: true, children: alert.suggested_actions.map((action, idx) => (_jsx(ListItem, { children: _jsx(ListItemText, { primary: action, primaryTypographyProps: { variant: 'body2' } }) }, idx))) }) })] }) })), alert.related_alerts && alert.related_alerts.length > 0 && (_jsx(Grid, { item: true, xs: 12, children: _jsxs(Card, { children: [_jsx(CardHeader, { title: "Related Alerts" }), _jsx(CardContent, { children: _jsx(List, { dense: true, children: alert.related_alerts.map((related_id, idx) => (_jsxs(ListItem, { children: [_jsx(ListItemText, { primary: `Alert ${idx + 1}`, secondary: related_id, secondaryTypographyProps: { variant: 'caption', component: 'div' } }), _jsx(Button, { size: "small", variant: "outlined", children: "View" })] }, idx))) }) })] }) })), _jsx(Grid, { item: true, xs: 12, children: _jsx(Card, { children: _jsx(CardContent, { children: _jsxs(Box, { sx: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' }, children: [_jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Status" }), _jsx(Chip, { label: alert.status, size: "small", sx: { mt: 0.5 } })] }), _jsxs(Box, { children: [_jsx(Typography, { variant: "caption", color: "textSecondary", children: "Severity" }), _jsx(Chip, { label: alert.severity, color: getSeverityColor(alert.severity), size: "small", sx: { mt: 0.5 } })] })] }) }) }) })] }) }), _jsxs(DialogActions, { children: [_jsx(Button, { onClick: onClose, children: "Close" }), _jsx(Button, { variant: "contained", onClick: onClose, children: "Mark as Reviewed" })] })] }));
+};
+export default AlertModal;
+//# sourceMappingURL=AlertModal.js.map
