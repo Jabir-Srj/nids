@@ -1,24 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Claude-inspired warm neutral palette */
-  --bg-primary: #FAFAF8;
-  --bg-secondary: #f5f3f0;
-  --bg-tertiary: #ede9e6;
-  --text-primary: #1a1a1a;
-  --text-secondary: #2d2d2d;
-  --text-muted: #6b6b6b;
-  --border-color: #e5e3e0;
-  --accent-amber: #d97706;
-  --accent-rose: #f97316;
-  --accent-soft-amber: #fcd34d;
-  --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.05);
-  --shadow-md: 0 4px 6px rgba(26, 26, 26, 0.08);
-  --shadow-lg: 0 10px 15px rgba(26, 26, 26, 0.1);
+  /* Cybersecurity dark theme */
+  --bg-primary: #0a0e27;
+  --bg-secondary: #0f192e;
+  --bg-tertiary: #1a2b4d;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e6ff;
+  --text-muted: #9ca3af;
+  
+  /* Neon colors */
+  --neon-cyan: #00D9FF;
+  --neon-pink: #FF006E;
+  --neon-yellow: #FFBE0B;
+  --neon-green: #00F5A0;
+  --neon-purple: #9D4EDD;
+  
+  /* Shadows */
+  --shadow-neon-cyan: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.1);
+  --shadow-glass: 0 8px 32px rgba(0, 217, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -29,29 +33,30 @@
 
 @layer base {
   body {
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
-    letter-spacing: 0.3px;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-bold;
-    font-family: 'Crimson Text', serif;
-    letter-spacing: 0.2px;
+    @apply font-bold;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.5px;
   }
 
-  h1 { @apply text-3xl; font-weight: 700; }
-  h2 { @apply text-2xl; font-weight: 700; }
-  h3 { @apply text-xl; font-weight: 600; }
-  h4 { @apply text-lg; font-weight: 600; }
+  h1 { @apply text-4xl tracking-tight; }
+  h2 { @apply text-3xl; }
+  h3 { @apply text-2xl; }
+  h4 { @apply text-xl; }
+  h5 { @apply text-lg; }
+  h6 { @apply text-base; }
 
   code, pre {
+    @apply font-mono;
     font-family: 'JetBrains Mono', monospace;
   }
 }
@@ -60,22 +65,152 @@
   min-height: 100vh;
 }
 
-/* Elegant Claude-inspired animations */
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
+/* ==================== GLASSMORPHISM EFFECTS ==================== */
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-glass rounded-glass border;
+    background: rgba(15, 25, 50, 0.4);
+    border-color: rgba(0, 217, 255, 0.15);
+    box-shadow: var(--shadow-glass);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .glass-card:hover {
+    @apply border-neon-cyan/40;
+    background: rgba(15, 25, 50, 0.6);
+    box-shadow: 0 12px 40px rgba(0, 217, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  }
+
+  .glass-card-lg {
+    @apply glass-card;
+    box-shadow: 0 16px 48px rgba(0, 217, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-input {
+    @apply backdrop-blur-glass rounded-md border;
+    background: rgba(10, 14, 39, 0.6);
+    border-color: rgba(0, 217, 255, 0.2);
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .glass-input:focus {
+    @apply border-neon-cyan outline-none;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-button {
+    @apply px-6 py-2.5 rounded-md font-semibold;
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    color: var(--neon-cyan);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-button:hover {
+    @apply border-neon-cyan;
+    background: rgba(0, 217, 255, 0.2);
+    box-shadow: var(--shadow-neon-cyan);
+    transform: translateY(-2px);
+  }
+
+  .glass-button-primary {
+    @apply glass-button;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(157, 78, 221, 0.2));
+    border-color: rgba(0, 217, 255, 0.4);
+  }
+
+  .glass-button-primary:hover {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(157, 78, 221, 0.3));
   }
 }
 
-@keyframes slideInLeft {
+/* ==================== NEON GLOWS ==================== */
+@layer components {
+  .neon-glow-cyan {
+    @apply text-neon-cyan;
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5), 0 0 20px rgba(0, 217, 255, 0.3);
+  }
+
+  .neon-glow-pink {
+    @apply text-neon-pink;
+    text-shadow: 0 0 10px rgba(255, 0, 110, 0.5), 0 0 20px rgba(255, 0, 110, 0.3);
+  }
+
+  .neon-glow-green {
+    @apply text-neon-green;
+    text-shadow: 0 0 10px rgba(0, 245, 160, 0.5), 0 0 20px rgba(0, 245, 160, 0.3);
+  }
+
+  .neon-glow-yellow {
+    @apply text-neon-yellow;
+    text-shadow: 0 0 10px rgba(255, 190, 11, 0.5), 0 0 20px rgba(255, 190, 11, 0.3);
+  }
+
+  .neon-box-cyan {
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.4), inset 0 0 15px rgba(0, 217, 255, 0.1);
+  }
+
+  .neon-box-pink {
+    box-shadow: 0 0 15px rgba(255, 0, 110, 0.4), inset 0 0 15px rgba(255, 0, 110, 0.1);
+  }
+
+  .neon-box-green {
+    box-shadow: 0 0 15px rgba(0, 245, 160, 0.4), inset 0 0 15px rgba(0, 245, 160, 0.1);
+  }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.6);
+  }
+}
+
+@keyframes glitchShimmer {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+}
+
+@keyframes radarScan {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes threatWave {
+  0% {
+    opacity: 1;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+}
+
+@keyframes slideInFromLeft {
   from {
     opacity: 0;
-    transform: translateX(-16px);
+    transform: translateX(-20px);
   }
   to {
     opacity: 1;
@@ -83,19 +218,32 @@
   }
 }
 
-@keyframes fadeIn {
+@keyframes slideInFromRight {
   from {
     opacity: 0;
+    transform: translateX(20px);
   }
   to {
     opacity: 1;
+    transform: translateX(0);
   }
 }
 
-@keyframes scaleIn {
+@keyframes slideInFromTop {
   from {
     opacity: 0;
-    transform: scale(0.98);
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
@@ -103,141 +251,149 @@
   }
 }
 
-@keyframes softPulse {
-  0%, 100% {
-    box-shadow: var(--shadow-md);
+@layer utilities {
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
   }
-  50% {
-    box-shadow: 0 8px 12px rgba(26, 26, 26, 0.12);
+
+  .animate-glitch {
+    animation: glitchShimmer 3s ease-in-out infinite;
+  }
+
+  .animate-radar {
+    animation: radarScan 4s linear infinite;
+  }
+
+  .animate-threat-wave {
+    animation: threatWave 2s ease-out infinite;
+  }
+
+  .animate-slide-left {
+    animation: slideInFromLeft 0.6s ease-out;
+  }
+
+  .animate-slide-right {
+    animation: slideInFromRight 0.6s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideInFromTop 0.6s ease-out;
+  }
+
+  .animate-fade-scale {
+    animation: fadeInScale 0.5s ease-out;
   }
 }
 
+/* ==================== SEVERITY BADGES ==================== */
 @layer components {
-  .animate-slide-in-down {
-    animation: slideInDown 300ms cubic-bezier(0.23, 1, 0.320, 1);
+  .badge-critical {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
+    background: rgba(255, 0, 110, 0.15);
+    color: #FF006E;
+    border: 1px solid rgba(255, 0, 110, 0.3);
+    box-shadow: 0 0 12px rgba(255, 0, 110, 0.2);
   }
 
-  .animate-slide-in-left {
-    animation: slideInLeft 300ms cubic-bezier(0.23, 1, 0.320, 1);
+  .badge-high {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
+    background: rgba(255, 190, 11, 0.15);
+    color: #FFBE0B;
+    border: 1px solid rgba(255, 190, 11, 0.3);
+    box-shadow: 0 0 12px rgba(255, 190, 11, 0.2);
   }
 
-  .animate-fade-in {
-    animation: fadeIn 300ms ease-out;
+  .badge-medium {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
+    background: rgba(157, 78, 221, 0.15);
+    color: #9D4EDD;
+    border: 1px solid rgba(157, 78, 221, 0.3);
+    box-shadow: 0 0 12px rgba(157, 78, 221, 0.2);
   }
 
-  .animate-scale-in {
-    animation: scaleIn 250ms cubic-bezier(0.23, 1, 0.320, 1);
+  .badge-low {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
+    background: rgba(0, 245, 160, 0.15);
+    color: #00F5A0;
+    border: 1px solid rgba(0, 245, 160, 0.3);
+    box-shadow: 0 0 12px rgba(0, 245, 160, 0.2);
   }
 
-  .soft-pulse {
-    animation: softPulse 2s ease-in-out infinite;
+  .badge-info {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
+    background: rgba(0, 217, 255, 0.15);
+    color: #00D9FF;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.2);
+  }
+}
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 14, 39, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 217, 255, 0.4);
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 217, 255, 0.6);
+}
+
+/* ==================== FOCUS STATES ==================== */
+@layer components {
+  .focus-ring {
+    @apply outline-none;
+    box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1), 0 0 0 6px rgba(0, 217, 255, 0.05);
   }
 
-  /* Elegant card styles with warm tones */
-  .card-elegant {
-    @apply rounded-lg border transition-all duration-200;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-color: var(--border-color);
-    box-shadow: var(--shadow-sm);
+  button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    @apply focus-ring;
+  }
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-neon bg-clip-text text-transparent;
   }
 
-  .card-elevated {
-    @apply rounded-lg border transition-all duration-300;
-    background-color: rgba(255, 255, 255, 0.85);
-    border-color: var(--border-color);
-    box-shadow: var(--shadow-md);
-  }
-  
-  .card-elevated:hover {
-    box-shadow: var(--shadow-lg);
+  .cyber-bg {
+    @apply bg-cyber-dark;
   }
 
-  .card-muted {
-    background-color: var(--bg-secondary);
-    border-color: var(--border-color);
-    @apply rounded-lg border;
+  .cyber-border {
+    @apply border border-cyber-border;
   }
 
-  /* Typography utilities */
-  .font-serif-display {
-    font-family: 'Crimson Text', serif;
+  .safe-area {
+    @apply p-8;
   }
 
-  .font-body {
-    font-family: 'Outfit', sans-serif;
+  /* Grid patterns for cybersecurity feel */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(rgba(0, 217, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 217, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
+}
 
-  .font-code {
-    font-family: 'JetBrains Mono', monospace;
-  }
+/* ==================== RESPONSIVE TWEAKS ==================== */
+@media (max-width: 768px) {
+  h1 { @apply text-2xl; }
+  h2 { @apply text-xl; }
+  h3 { @apply text-lg; }
 
-  /* Elegant button styles with warm accents */
-  .btn-primary {
-    @apply px-4 py-2 rounded-md font-semibold transition-all duration-200;
-    background-color: var(--accent-amber);
-    color: white;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .btn-primary:hover {
-    background-color: #c46e0f;
-    box-shadow: var(--shadow-md);
-  }
-
-  .btn-secondary {
-    @apply px-4 py-2 rounded-md font-semibold transition-all duration-200;
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .btn-secondary:hover {
-    background-color: var(--bg-tertiary);
-    box-shadow: var(--shadow-md);
-  }
-
-  /* Accent utilities */
-  .accent-amber {
-    color: var(--accent-amber);
-  }
-
-  .accent-rose {
-    color: var(--accent-rose);
-  }
-
-  .bg-accent-amber {
-    background-color: var(--accent-amber);
-  }
-
-  .bg-accent-rose {
-    background-color: var(--accent-rose);
-  }
-
-  /* Smooth scrollbar with warm aesthetic */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: var(--bg-secondary);
-    border-radius: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--border-color);
-    border-radius: 10px;
-    transition: background-color 200ms;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--accent-amber);
-  }
-
-  /* Elegant focus states */
-  button:focus, input:focus, textarea:focus, select:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+  .safe-area {
+    @apply p-4;
   }
 }
