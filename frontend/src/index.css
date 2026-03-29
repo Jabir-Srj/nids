@@ -5,24 +5,25 @@
 @tailwind utilities;
 
 :root {
-  /* Cybersecurity dark theme */
-  --bg-primary: #0a0e27;
-  --bg-secondary: #0f192e;
-  --bg-tertiary: #1a2b4d;
-  --text-primary: #ffffff;
-  --text-secondary: #e0e6ff;
-  --text-muted: #9ca3af;
+  /* Claude Light Theme */
+  --bg-primary: #FAFAF8;
+  --bg-secondary: #f5f3f0;
+  --bg-tertiary: #ebe8e3;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --border-color: #e5e3e0;
   
-  /* Neon colors */
-  --neon-cyan: #00D9FF;
-  --neon-pink: #FF006E;
-  --neon-yellow: #FFBE0B;
-  --neon-green: #00F5A0;
-  --neon-purple: #9D4EDD;
+  /* Accent colors */
+  --neon-cyan: #0066cc;
+  --neon-pink: #cc0066;
+  --neon-yellow: #cc8800;
+  --neon-green: #006633;
+  --neon-purple: #6600cc;
   
   /* Shadows */
-  --shadow-neon-cyan: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.1);
-  --shadow-glass: 0 8px 32px rgba(0, 217, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  --shadow-neon-cyan: 0 2px 8px rgba(0, 102, 204, 0.12);
+  --shadow-glass: 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 * {
@@ -69,41 +70,44 @@
 @layer components {
   .glass-card {
     @apply backdrop-blur-glass rounded-glass border;
-    background: rgba(15, 25, 50, 0.4);
-    border-color: rgba(0, 217, 255, 0.15);
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    border-width: 1px;
     box-shadow: var(--shadow-glass);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glass-card:hover {
-    @apply border-neon-cyan/40;
-    background: rgba(15, 25, 50, 0.6);
-    box-shadow: 0 12px 40px rgba(0, 217, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    background: var(--bg-tertiary);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.5);
   }
 
   .glass-card-lg {
     @apply glass-card;
-    box-shadow: 0 16px 48px rgba(0, 217, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 102, 204, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.5);
   }
 
   .glass-input {
     @apply backdrop-blur-glass rounded-md border;
-    background: rgba(10, 14, 39, 0.6);
-    border-color: rgba(0, 217, 255, 0.2);
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    border-width: 1px;
     color: var(--text-primary);
     padding: 0.75rem 1rem;
     transition: all 0.2s ease;
   }
 
   .glass-input:focus {
-    @apply border-neon-cyan outline-none;
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    border-color: var(--neon-cyan);
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.16), inset 0 1px 2px rgba(0, 0, 0, 0.08);
   }
 
   .glass-button {
     @apply px-6 py-2.5 rounded-md font-semibold;
-    background: rgba(0, 217, 255, 0.1);
-    border: 1px solid rgba(0, 217, 255, 0.3);
+    background: rgba(0, 102, 204, 0.08);
+    border: 1px solid var(--border-color);
     color: var(--neon-cyan);
     transition: all 0.3s ease;
     position: relative;
@@ -111,20 +115,20 @@
   }
 
   .glass-button:hover {
-    @apply border-neon-cyan;
-    background: rgba(0, 217, 255, 0.2);
-    box-shadow: var(--shadow-neon-cyan);
+    border-color: var(--neon-cyan);
+    background: rgba(0, 102, 204, 0.12);
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.12);
     transform: translateY(-2px);
   }
 
   .glass-button-primary {
     @apply glass-button;
-    background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(157, 78, 221, 0.2));
-    border-color: rgba(0, 217, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(102, 0, 204, 0.1));
+    border-color: var(--border-color);
   }
 
   .glass-button-primary:hover {
-    background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(157, 78, 221, 0.3));
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.15), rgba(102, 0, 204, 0.15));
   }
 }
 
@@ -132,34 +136,34 @@
 @layer components {
   .neon-glow-cyan {
     @apply text-neon-cyan;
-    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5), 0 0 20px rgba(0, 217, 255, 0.3);
+    text-shadow: 0 0 10px rgba(0, 102, 204, 0.2);
   }
 
   .neon-glow-pink {
     @apply text-neon-pink;
-    text-shadow: 0 0 10px rgba(255, 0, 110, 0.5), 0 0 20px rgba(255, 0, 110, 0.3);
+    text-shadow: 0 0 10px rgba(204, 0, 102, 0.2);
   }
 
   .neon-glow-green {
     @apply text-neon-green;
-    text-shadow: 0 0 10px rgba(0, 245, 160, 0.5), 0 0 20px rgba(0, 245, 160, 0.3);
+    text-shadow: 0 0 10px rgba(0, 102, 51, 0.2);
   }
 
   .neon-glow-yellow {
     @apply text-neon-yellow;
-    text-shadow: 0 0 10px rgba(255, 190, 11, 0.5), 0 0 20px rgba(255, 190, 11, 0.3);
+    text-shadow: 0 0 10px rgba(204, 136, 0, 0.2);
   }
 
   .neon-box-cyan {
-    box-shadow: 0 0 15px rgba(0, 217, 255, 0.4), inset 0 0 15px rgba(0, 217, 255, 0.1);
+    box-shadow: 0 0 12px rgba(0, 102, 204, 0.16), inset 0 0 8px rgba(0, 102, 204, 0.08);
   }
 
   .neon-box-pink {
-    box-shadow: 0 0 15px rgba(255, 0, 110, 0.4), inset 0 0 15px rgba(255, 0, 110, 0.1);
+    box-shadow: 0 0 12px rgba(204, 0, 102, 0.16), inset 0 0 8px rgba(204, 0, 102, 0.08);
   }
 
   .neon-box-green {
-    box-shadow: 0 0 15px rgba(0, 245, 160, 0.4), inset 0 0 15px rgba(0, 245, 160, 0.1);
+    box-shadow: 0 0 12px rgba(0, 102, 51, 0.16), inset 0 0 8px rgba(0, 102, 51, 0.08);
   }
 }
 
@@ -289,42 +293,42 @@
 @layer components {
   .badge-critical {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(255, 0, 110, 0.15);
-    color: #FF006E;
-    border: 1px solid rgba(255, 0, 110, 0.3);
-    box-shadow: 0 0 12px rgba(255, 0, 110, 0.2);
+    background: rgba(204, 0, 102, 0.08);
+    color: #cc0066;
+    border: 1px solid rgba(204, 0, 102, 0.2);
+    box-shadow: 0 2px 4px rgba(204, 0, 102, 0.08);
   }
 
   .badge-high {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(255, 190, 11, 0.15);
-    color: #FFBE0B;
-    border: 1px solid rgba(255, 190, 11, 0.3);
-    box-shadow: 0 0 12px rgba(255, 190, 11, 0.2);
+    background: rgba(204, 136, 0, 0.08);
+    color: #cc8800;
+    border: 1px solid rgba(204, 136, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(204, 136, 0, 0.08);
   }
 
   .badge-medium {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(157, 78, 221, 0.15);
-    color: #9D4EDD;
-    border: 1px solid rgba(157, 78, 221, 0.3);
-    box-shadow: 0 0 12px rgba(157, 78, 221, 0.2);
+    background: rgba(102, 0, 204, 0.08);
+    color: #6600cc;
+    border: 1px solid rgba(102, 0, 204, 0.2);
+    box-shadow: 0 2px 4px rgba(102, 0, 204, 0.08);
   }
 
   .badge-low {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(0, 245, 160, 0.15);
-    color: #00F5A0;
-    border: 1px solid rgba(0, 245, 160, 0.3);
-    box-shadow: 0 0 12px rgba(0, 245, 160, 0.2);
+    background: rgba(0, 102, 51, 0.08);
+    color: #006633;
+    border: 1px solid rgba(0, 102, 51, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 102, 51, 0.08);
   }
 
   .badge-info {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(0, 217, 255, 0.15);
-    color: #00D9FF;
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    box-shadow: 0 0 12px rgba(0, 217, 255, 0.2);
+    background: rgba(0, 102, 204, 0.08);
+    color: #0066cc;
+    border: 1px solid rgba(0, 102, 204, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 102, 204, 0.08);
   }
 }
 
@@ -335,24 +339,24 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(10, 14, 39, 0.5);
+  background: var(--bg-tertiary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 217, 255, 0.4);
+  background: var(--border-color);
   border-radius: 4px;
   transition: background 0.3s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 217, 255, 0.6);
+  background: var(--neon-cyan);
 }
 
 /* ==================== FOCUS STATES ==================== */
 @layer components {
   .focus-ring {
     @apply outline-none;
-    box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1), 0 0 0 6px rgba(0, 217, 255, 0.05);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12), 0 0 0 6px rgba(0, 102, 204, 0.04);
   }
 
   button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
@@ -378,11 +382,11 @@
     @apply p-8;
   }
 
-  /* Grid patterns for cybersecurity feel */
+  /* Grid patterns for design feel */
   .grid-pattern {
     background-image: 
-      linear-gradient(rgba(0, 217, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 217, 255, 0.05) 1px, transparent 1px);
+      linear-gradient(rgba(0, 102, 204, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 102, 204, 0.04) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 }

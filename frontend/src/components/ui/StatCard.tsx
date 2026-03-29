@@ -11,11 +11,11 @@ interface StatCardProps {
 }
 
 const colorConfig = {
-  cyan: { bg: 'rgba(0, 217, 255, 0.1)', border: 'rgba(0, 217, 255, 0.3)', text: '#00D9FF' },
-  pink: { bg: 'rgba(255, 0, 110, 0.1)', border: 'rgba(255, 0, 110, 0.3)', text: '#FF006E' },
-  green: { bg: 'rgba(0, 245, 160, 0.1)', border: 'rgba(0, 245, 160, 0.3)', text: '#00F5A0' },
-  yellow: { bg: 'rgba(255, 190, 11, 0.1)', border: 'rgba(255, 190, 11, 0.3)', text: '#FFBE0B' },
-  purple: { bg: 'rgba(157, 78, 221, 0.1)', border: 'rgba(157, 78, 221, 0.3)', text: '#9D4EDD' },
+  cyan: { bg: 'rgba(0, 102, 204, 0.08)', border: 'rgba(0, 102, 204, 0.2)', text: '#0066cc' },
+  pink: { bg: 'rgba(204, 0, 102, 0.08)', border: 'rgba(204, 0, 102, 0.2)', text: '#cc0066' },
+  green: { bg: 'rgba(0, 102, 51, 0.08)', border: 'rgba(0, 102, 51, 0.2)', text: '#006633' },
+  yellow: { bg: 'rgba(204, 136, 0, 0.08)', border: 'rgba(204, 136, 0, 0.2)', text: '#cc8800' },
+  purple: { bg: 'rgba(102, 0, 204, 0.08)', border: 'rgba(102, 0, 204, 0.2)', text: '#6600cc' },
 };
 
 export const StatCard: React.FC<StatCardProps> = ({
@@ -35,15 +35,16 @@ export const StatCard: React.FC<StatCardProps> = ({
       transition={{ duration: 0.4 }}
       whileHover={{ y: -4 }}
       onClick={onClick}
-      className="glass-card p-6 cursor-pointer"
+      className="glass-card p-6 cursor-pointer border"
       style={{
         background: config.bg,
         borderColor: config.border,
+        borderWidth: '1px',
       }}
     >
       <div className="flex items-start justify-between mb-4">
         <div>
-          <p className="text-sm font-medium text-gray-400 mb-2">{title}</p>
+          <p className="text-sm font-medium text-gray-500 mb-2">{title}</p>
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -72,7 +73,7 @@ export const StatCard: React.FC<StatCardProps> = ({
           transition={{ delay: 0.3 }}
           className="flex items-center gap-1 text-sm"
           style={{
-            color: trend.direction === 'up' ? '#00F5A0' : '#FF006E',
+            color: trend.direction === 'up' ? '#006633' : '#cc0066',
           }}
         >
           <span>{trend.direction === 'up' ? '↑' : '↓'}</span>

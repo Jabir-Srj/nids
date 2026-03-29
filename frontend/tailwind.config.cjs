@@ -6,40 +6,40 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Cybersecurity dark theme
+        // Claude Light Theme
         'cyber': {
-          'dark': '#0a0e27',
-          'darker': '#050810',
-          'card': '#0f192e',
-          'border': '#1a2b4d',
+          'dark': '#FAFAF8',
+          'darker': '#f5f3f0',
+          'card': '#ebe8e3',
+          'border': '#e5e3e0',
         },
-        // Neon accents
+        // Light theme accents
         'neon': {
-          'cyan': '#00D9FF',
-          'pink': '#FF006E',
-          'yellow': '#FFBE0B',
-          'green': '#00F5A0',
-          'purple': '#9D4EDD',
-          'orange': '#FF6B35',
+          'cyan': '#0066cc',
+          'pink': '#cc0066',
+          'yellow': '#cc8800',
+          'green': '#006633',
+          'purple': '#6600cc',
+          'orange': '#cc5500',
         },
         // Glass effect support
-        'glass': 'rgba(15, 25, 50, 0.4)',
+        'glass': 'rgba(245, 243, 240, 0.7)',
       },
       backgroundColor: {
-        'glass-light': 'rgba(15, 25, 50, 0.4)',
-        'glass-dark': 'rgba(5, 8, 16, 0.6)',
-        'glass-hover': 'rgba(15, 25, 50, 0.6)',
+        'glass-light': 'rgba(245, 243, 240, 0.7)',
+        'glass-dark': 'rgba(235, 232, 227, 0.8)',
+        'glass-hover': 'rgba(235, 232, 227, 1)',
       },
       backdropBlur: {
-        'glass': '10px',
-        'glass-heavy': '16px',
+        'glass': '8px',
+        'glass-heavy': '12px',
       },
       boxShadow: {
-        'neon-cyan': '0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.1)',
-        'neon-pink': '0 0 20px rgba(255, 0, 110, 0.3), 0 0 40px rgba(255, 0, 110, 0.1)',
-        'neon-green': '0 0 20px rgba(0, 245, 160, 0.3), 0 0 40px rgba(0, 245, 160, 0.1)',
-        'glass': '0 8px 32px rgba(0, 217, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
-        'glass-lg': '0 16px 48px rgba(0, 217, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+        'neon-cyan': '0 2px 8px rgba(0, 102, 204, 0.12)',
+        'neon-pink': '0 2px 8px rgba(204, 0, 102, 0.12)',
+        'neon-green': '0 2px 8px rgba(0, 102, 51, 0.12)',
+        'glass': '0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.5)',
+        'glass-lg': '0 4px 16px rgba(0, 102, 204, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.5)',
       },
       animation: {
         'pulse-neon': 'pulseNeon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -51,12 +51,12 @@ module.exports = {
       },
       keyframes: {
         pulseNeon: {
-          '0%, 100%': { opacity: '1', boxShadow: '0 0 20px rgba(0, 217, 255, 0.3)' },
-          '50%': { opacity: '0.7', boxShadow: '0 0 40px rgba(0, 217, 255, 0.5)' },
+          '0%, 100%': { opacity: '1', boxShadow: '0 2px 8px rgba(0, 102, 204, 0.12)' },
+          '50%': { opacity: '0.8', boxShadow: '0 4px 16px rgba(0, 102, 204, 0.16)' },
         },
         glow: {
-          '0%, 100%': { textShadow: '0 0 10px rgba(0, 217, 255, 0.5)' },
-          '50%': { textShadow: '0 0 20px rgba(0, 217, 255, 0.8)' },
+          '0%, 100%': { textShadow: '0 0 8px rgba(0, 102, 204, 0.2)' },
+          '50%': { textShadow: '0 0 12px rgba(0, 102, 204, 0.3)' },
         },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
@@ -81,8 +81,8 @@ module.exports = {
         'md-glass': '8px',
       },
       backgroundImage: {
-        'gradient-neon': 'linear-gradient(135deg, #00D9FF 0%, #FF006E 50%, #9D4EDD 100%)',
-        'gradient-cyber': 'linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(255, 0, 110, 0.1) 100%)',
+        'gradient-neon': 'linear-gradient(135deg, #0066cc 0%, #cc0066 50%, #6600cc 100%)',
+        'gradient-cyber': 'linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, rgba(204, 0, 102, 0.08) 100%)',
       },
     },
   },
