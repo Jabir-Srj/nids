@@ -86,7 +86,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ].filter(Boolean),
+  plugins: [],
 }
