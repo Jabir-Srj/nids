@@ -1,0 +1,406 @@
+
+> nids-frontend@1.0.0 lint
+> eslint src --ext ts,tsx
+
+Warning: React version not specified in eslint-plugin-react settings. See https://github.com/jsx-eslint/eslint-plugin-react#configuration .
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\App.tsx
+    7:7   error    'DashboardV2' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   24:45  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+   24:78  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+   25:22  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+   30:42  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+   34:28  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+   34:44  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  408:43  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  411:43  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  424:43  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  427:43  warning  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\AISettings.tsx
+   66:76  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   87:22  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  193:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\AdvancedFilters.tsx
+  30:10  error  'activeFilters' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\AlertList.tsx
+  26:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\AlertModal.tsx
+  14:3   error    'Divider' is defined but never used         @typescript-eslint/no-unused-vars
+  18:3   error    'Table' is defined but never used           @typescript-eslint/no-unused-vars
+  19:3   error    'TableBody' is defined but never used       @typescript-eslint/no-unused-vars
+  20:3   error    'TableCell' is defined but never used       @typescript-eslint/no-unused-vars
+  21:3   error    'TableContainer' is defined but never used  @typescript-eslint/no-unused-vars
+  22:3   error    'TableHead' is defined but never used       @typescript-eslint/no-unused-vars
+  23:3   error    'TableRow' is defined but never used        @typescript-eslint/no-unused-vars
+  24:3   error    'Paper' is defined but never used           @typescript-eslint/no-unused-vars
+  30:16  error    'OpenInNewIcon' is defined but never used   @typescript-eslint/no-unused-vars
+  61:72  error    'onUpdate' is defined but never used        @typescript-eslint/no-unused-vars
+  70:48  warning  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\AlertsPanelV2.tsx
+  35:49  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\Analytics.tsx
+   3:20  error    'rulesAPI' is defined but never used      @typescript-eslint/no-unused-vars
+  12:11  error    'Rule' is defined but never used          @typescript-eslint/no-unused-vars
+  50:68  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  82:69  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  82:77  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\Dashboard.tsx
+   69:10  error    'threatTypes' is assigned a value but never used      @typescript-eslint/no-unused-vars
+   69:23  error    'setThreatTypes' is assigned a value but never used   @typescript-eslint/no-unused-vars
+   69:50  warning  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+   70:10  error    'protocolData' is assigned a value but never used     @typescript-eslint/no-unused-vars
+   70:24  error    'setProtocolData' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   70:52  warning  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+   71:52  warning  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  131:39  warning  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\DashboardV2.tsx
+  31:52  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  56:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  57:40  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\DashboardV3.tsx
+    3:75  error    'Lock' is defined but never used                     @typescript-eslint/no-unused-vars
+    6:3   error    'LineChart' is defined but never used                @typescript-eslint/no-unused-vars
+    7:3   error    'Line' is defined but never used                     @typescript-eslint/no-unused-vars
+   10:3   error    'BarChart' is defined but never used                 @typescript-eslint/no-unused-vars
+   11:3   error    'Bar' is defined but never used                      @typescript-eslint/no-unused-vars
+   19:3   error    'Legend' is defined but never used                   @typescript-eslint/no-unused-vars
+   62:21  error    'setChartData' is assigned a value but never used    @typescript-eslint/no-unused-vars
+   72:23  error    'setThreatTypes' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   93:44  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+   94:40  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  110:47  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  114:32  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  324:10  error    'CustomTooltip' is defined but never used            @typescript-eslint/no-unused-vars
+  324:52  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  337:30  warning  Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\DemoDataGenerator.tsx
+  13:3   error  'Chip' is defined but never used           @typescript-eslint/no-unused-vars
+  45:13  error  'data' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\GeoMap.tsx
+  18:10  error    'mapUrl' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  29:53  warning  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+  62:15  error    'color' is assigned a value but never used   @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\NetworkTopology.tsx
+  44:32  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\NetworkTopologyV2.tsx
+   3:21  error  'PulseRing' is defined but never used                @typescript-eslint/no-unused-vars
+  23:17  error  'setNodes' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  32:23  error  'setConnections' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\Rules.tsx
+    5:3   error    'Card' is defined but never used                                                                               @typescript-eslint/no-unused-vars
+    6:3   error    'CardContent' is defined but never used                                                                        @typescript-eslint/no-unused-vars
+    7:3   error    'CardHeader' is defined but never used                                                                         @typescript-eslint/no-unused-vars
+   31:3   error    'FormControlLabel' is defined but never used                                                                   @typescript-eslint/no-unused-vars
+   37:12  error    'CloseIcon' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+   40:18  error    'CheckCircleIcon' is defined but never used                                                                    @typescript-eslint/no-unused-vars
+   41:12  error    'ErrorIcon' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+   74:48  warning  Unexpected any. Specify a different type                                                                       @typescript-eslint/no-explicit-any
+   91:6   warning  React Hook useEffect has a missing dependency: 'fetchRules'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  250:48  warning  Unexpected any. Specify a different type                                                                       @typescript-eslint/no-explicit-any
+  497:87  warning  Unexpected any. Specify a different type                                                                       @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\Settings.tsx
+  37:10  error    'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  49:29  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\SystemHealth.tsx
+  98:10  error  'error' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\ThreatIntel.tsx
+   24:3   error    'TextField' is defined but never used                  @typescript-eslint/no-unused-vars
+   25:3   error    'List' is defined but never used                       @typescript-eslint/no-unused-vars
+   26:3   error    'ListItem' is defined but never used                   @typescript-eslint/no-unused-vars
+   27:3   error    'ListItemText' is defined but never used               @typescript-eslint/no-unused-vars
+   74:44  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  121:9   error    'getSeverityColor' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  136:52  warning  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  151:9   error    'COLORS' is assigned a value but never used            @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\ThreatTimeline.tsx
+  17:18  error  'setEvents' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\TimeRangeFilter.tsx
+  6:3  error  'Chip' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\shared\Cards.tsx
+  1:17  error  'useState' is defined but never used   @typescript-eslint/no-unused-vars
+  1:27  error  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\shared\Charts.tsx
+    1:17  error  'useState' is defined but never used   @typescript-eslint/no-unused-vars
+    1:27  error  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+    3:3   error  'LineChart' is defined but never used  @typescript-eslint/no-unused-vars
+    4:3   error  'Line' is defined but never used       @typescript-eslint/no-unused-vars
+  111:29  error  'count' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\components\ui\AnimatedCounter.tsx
+  24:9  error  'startValue' is never reassigned. Use 'const' instead  prefer-const
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\contexts\ThemeContext.tsx
+  46:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\hooks\useWebSocket.d.ts
+   4:23  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  10:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\hooks\useWebSocket.ts
+   7:21  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                       @typescript-eslint/no-explicit-any
+  41:13  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                       @typescript-eslint/no-explicit-any
+  70:38  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                       @typescript-eslint/no-explicit-any
+  93:23  warning  The ref value 'unsubscribesRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'unsubscribesRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\services\api.d.ts
+   3:71  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   3:76  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   3:81  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+   4:68  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   4:73  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   4:78  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+   5:20  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   5:66  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   5:71  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   5:76  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+   6:32  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   6:78  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   6:83  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   6:88  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+   7:67  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   7:72  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   7:77  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+   8:79  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   8:84  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   8:89  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  11:59  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  11:64  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  11:69  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  12:71  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  12:76  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  12:81  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  13:61  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  13:66  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  13:71  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  14:63  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  14:68  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  14:73  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  15:62  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  15:67  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  15:72  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  18:57  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  18:62  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  18:67  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  19:68  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  19:73  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  19:78  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  20:20  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  20:66  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  20:71  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  20:76  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  21:32  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  21:78  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  21:83  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  21:88  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  22:67  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  22:72  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  22:77  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  23:85  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  23:90  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  23:95  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  26:79  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  26:84  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  26:89  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  27:55  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  27:60  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  27:65  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  28:57  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  28:62  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  28:67  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  29:61  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  29:66  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  29:71  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  30:72  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  30:77  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  30:82  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  33:25  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  33:71  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  33:76  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  33:81  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  34:59  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  34:64  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  34:69  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  35:57  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  35:62  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  35:67  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+  38:56  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  38:61  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  38:66  error    Don't use `{}` as a type. `{}` actually means "any non-nullish value".
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead.
+- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.
+- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  @typescript-eslint/ban-types
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\services\api.ts
+  16:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  17:30  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  34:30  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  48:23  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\services\fetchWithFallback.d.ts
+  1:67   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  1:117  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\services\fetchWithFallback.ts
+  6:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  8:29  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\services\websocket.d.ts
+  24:19  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\services\websocket.ts
+  150:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\types\index.d.ts
+  64:11  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\types\index.ts
+  66:9  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\utils\websocket.d.ts
+  14:40  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  15:42  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  16:34  error    Don't use `Function` as a type. The `Function` type accepts any function-like value.
+It provides no type safety when calling the function, which can be a common source of bugs.
+It also accepts things like class declarations, which will throw at runtime as they will not be called with `new`.
+If you are expecting the function to accept certain arguments, you should explicitly define the function shape  @typescript-eslint/ban-types
+
+C:\Users\Jabir\Documents\GitHub\nids\frontend\src\utils\websocket.ts
+    5:34  error    Don't use `Function` as a type. The `Function` type accepts any function-like value.
+It provides no type safety when calling the function, which can be a common source of bugs.
+It also accepts things like class declarations, which will throw at runtime as they will not be called with `new`.
+If you are expecting the function to accept certain arguments, you should explicitly define the function shape  @typescript-eslint/ban-types
+   83:38  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  101:40  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  102:28  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  109:32  error    Don't use `Function` as a type. The `Function` type accepts any function-like value.
+It provides no type safety when calling the function, which can be a common source of bugs.
+It also accepts things like class declarations, which will throw at runtime as they will not be called with `new`.
+If you are expecting the function to accept certain arguments, you should explicitly define the function shape  @typescript-eslint/ban-types
+  119:37  warning  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+
+Γ£û 212 problems (88 errors, 124 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

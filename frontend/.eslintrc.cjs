@@ -17,5 +17,8 @@ module.exports = {
     'react-refresh/only-export-components': 'warn',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/ban-types': 'warn',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    'prefer-const': 'warn',
   },
 };
